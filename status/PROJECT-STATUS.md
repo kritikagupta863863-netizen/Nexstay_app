@@ -18,6 +18,8 @@ It reads a maintained JSON snapshot and does not automatically capture tool call
 - AI coding guidance baseline
 - Architecture documentation and pre-build architecture gate
 - Initial Next.js application scaffold and responsive owner dashboard shell
+- Device preview simulator (phone/tablet) and first Rooms & beds UI slice
+- Git repository initialized and pushed to GitHub (`kritikagupta863863-netizen/Nexstay_app`, private, branch `main`)
 
 ## In progress
 

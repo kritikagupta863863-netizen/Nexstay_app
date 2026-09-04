@@ -22,6 +22,9 @@ recorded transparently below rather than backdated.
   dashboard inside phone and tablet frames.
 - **updated** — Refined the simulator to use realistic iPhone 15 Pro and iPad
   11-inch portrait viewport proportions instead of a shortened generic phone frame.
+- **completed** — Initialized the local git repository and pushed the full project
+  (documentation, status tracker, and Next.js app scaffold) to a new private GitHub
+  repository at `kritikagupta863863-netizen/Nexstay_app` (branch `main`).
 
 - **added** — Imported all actionable items from the former TODO list into stable `NS-T###`
   records, preserving required, deferred, and decision-needed work. The source file is no
