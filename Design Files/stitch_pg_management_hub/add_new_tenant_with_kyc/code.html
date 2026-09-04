@@ -1,0 +1,288 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Add New Tenant - Property Management</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "on-background": "#191c1e",
+                        "outline-variant": "#c6c6cd",
+                        "error-container": "#ffdad6",
+                        "secondary": "#0058be",
+                        "surface-container": "#eceef0",
+                        "on-error": "#ffffff",
+                        "on-primary": "#ffffff",
+                        "surface-container-high": "#e6e8ea",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-container-low": "#f2f4f6",
+                        "on-secondary": "#ffffff",
+                        "error": "#ba1a1a",
+                        "on-tertiary": "#ffffff",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#2170e4",
+                        "tertiary": "#000000",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-tertiary-container": "#75859d",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#001a42",
+                        "inverse-primary": "#bec6e0",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-secondary-container": "#fefcff",
+                        "on-surface-variant": "#45464d",
+                        "secondary-fixed": "#d8e2ff",
+                        "outline": "#76777d",
+                        "inverse-surface": "#2d3133",
+                        "surface-tint": "#565e74",
+                        "surface-container-highest": "#e0e3e5",
+                        "surface-variant": "#e0e3e5",
+                        "on-error-container": "#93000a",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "primary-container": "#131b2e",
+                        "primary": "#000000",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-container": "#0b1c30",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary-container": "#7c839b",
+                        "on-surface": "#191c1e",
+                        "background": "#f7f9fb"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Hanken Grotesk"],
+                        "display": ["Hanken Grotesk"],
+                        "body": ["Hanken Grotesk"],
+                        "label": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-color: #0058be !important;
+            box-shadow: 0 0 0 2px rgba(0, 88, 190, 0.1);
+        }
+        .form-section {
+            animation: slideUp 0.4s ease-out forwards;
+        }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background text-on-background min-h-screen pb-32">
+<!-- TopAppBar -->
+<header class="bg-surface-container-lowest dark:bg-surface-container-low text-primary dark:text-inverse-primary fixed top-0 w-full z-50 border-b border-outline-variant dark:border-outline h-16 flex justify-between items-center px-4">
+<div class="flex items-center gap-4">
+<button aria-label="Go back" class="material-symbols-outlined p-2 hover:bg-surface-container-high rounded-full transition-colors cursor-pointer">arrow_back</button>
+<h1 class="font-headline text-headline-sm font-semibold">Add New Tenant</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined cursor-pointer hover:bg-surface-container-high p-2 rounded-full">more_vert</span>
+</div>
+</header>
+<!-- Main Canvas -->
+<main class="pt-24 px-4 max-w-2xl mx-auto space-y-8">
+<!-- Section 1: Personal Information -->
+<section class="form-section bg-surface-container-lowest p-6 rounded-xl border border-outline-variant">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">person</span>
+<h2 class="font-headline text-body-lg font-bold">Personal Information</h2>
+</div>
+<div class="flex flex-col md:flex-row gap-8">
+<!-- Profile Image Upload -->
+<div class="flex flex-col items-center gap-3 shrink-0">
+<div class="w-24 h-24 rounded-full bg-surface-container-high flex items-center justify-center border-2 border-dashed border-outline overflow-hidden relative group cursor-pointer">
+<span class="material-symbols-outlined text-outline group-hover:scale-110 transition-transform">add_a_photo</span>
+<!-- Placeholder for visual feedback -->
+<div class="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+</div>
+<span class="font-label text-[10px] uppercase tracking-wider text-outline">Upload Photo</span>
+</div>
+<div class="flex-1 space-y-4">
+<div class="group">
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Full Name</label>
+<input class="w-full h-11 px-4 rounded-lg border border-outline-variant bg-surface text-body-md transition-all" placeholder="e.g. John Doe" type="text">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Contact Number</label>
+<input class="w-full h-11 px-4 rounded-lg border border-outline-variant bg-surface text-body-md font-label" placeholder="+91 00000 00000" type="tel">
+</div>
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Email Address</label>
+<input class="w-full h-11 px-4 rounded-lg border border-outline-variant bg-surface text-body-md" placeholder="john@example.com" type="email">
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Section 2: Stay Details -->
+<section class="form-section bg-surface-container-lowest p-6 rounded-xl border border-outline-variant" style="animation-delay: 0.1s;">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">meeting_room</span>
+<h2 class="font-headline text-body-lg font-bold">Stay Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Room Assignment<span class="ml-2 text-[10px] font-medium text-secondary bg-secondary/10 px-2 py-0.5 rounded-full uppercase tracking-tight">Auto-fills Type &amp; Sharing</span></label>
+<div class="relative">
+<select class="w-full h-11 px-4 rounded-lg border border-outline-variant bg-surface text-body-md appearance-none">
+<option value="">Select Room</option>
+<option value="101">Room 101 (Available)</option>
+<option value="104">Room 104 (Available)</option>
+<option value="202">Room 202 (Partial)</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-2.5 pointer-events-none text-outline">expand_more</span>
+</div>
+</div>
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Join Date</label>
+<div class="relative">
+<input class="w-full h-11 px-4 rounded-lg border border-outline-variant bg-surface text-body-md font-label" type="date">
+</div>
+</div>
+</div>
+</section><section class="form-section bg-surface-container-lowest p-6 rounded-xl border border-outline-variant" style="animation-delay: 0.15s;"><div class="flex items-center gap-3 mb-6"><span class="material-symbols-outlined text-secondary">verified_user</span><h2 class="font-headline text-body-lg font-bold">KYC Documents</h2></div><div class="space-y-4"><div class="grid grid-cols-1 md:grid-cols-2 gap-4"><div class="p-4 border border-outline-variant rounded-lg bg-surface flex items-center justify-between group cursor-pointer hover:border-secondary transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline group-hover:text-secondary">badge</span><div class="flex flex-col"><span class="text-body-sm font-semibold">Identity Proof</span><span class="text-[10px] text-outline">Aadhaar / DL</span></div></div><span class="material-symbols-outlined text-outline">upload</span></div><div class="p-4 border border-outline-variant rounded-lg bg-surface flex items-center justify-between group cursor-pointer hover:border-secondary transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline group-hover:text-secondary">account_box</span><div class="flex flex-col"><span class="text-body-sm font-semibold">Passport Photo</span><span class="text-[10px] text-outline">JPG/PNG</span></div></div><span class="material-symbols-outlined text-outline">upload</span></div><div class="p-4 border border-outline-variant rounded-lg bg-surface flex items-center justify-between group cursor-pointer hover:border-secondary transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline group-hover:text-secondary">home_pin</span><div class="flex flex-col"><span class="text-body-sm font-semibold">Address Proof</span><span class="text-[10px] text-outline">Utility Bill / Voter ID</span></div></div><span class="material-symbols-outlined text-outline">upload</span></div><div class="p-4 border border-outline-variant rounded-lg bg-surface flex items-center justify-between group cursor-pointer hover:border-secondary transition-colors"><div class="flex items-center gap-3"><span class="material-symbols-outlined text-outline group-hover:text-secondary">description</span><div class="flex flex-col"><span class="text-body-sm font-semibold">Rental Agreement</span><span class="text-[10px] text-outline">Signed PDF</span></div></div><span class="material-symbols-outlined text-outline">upload</span></div></div></div></section>
+<!-- Section 3: Billing & ID -->
+<section class="form-section bg-surface-container-lowest p-6 rounded-xl border border-outline-variant" style="animation-delay: 0.2s;">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">payments</span>
+<h2 class="font-headline text-body-lg font-bold">Billing &amp; ID</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Security Deposit</label>
+<div class="relative">
+<span class="absolute left-4 top-2.5 font-label text-outline">₹</span>
+<input class="w-full h-11 pl-8 pr-4 rounded-lg border border-outline-variant bg-surface text-body-md font-label" placeholder="5000" type="number">
+</div>
+</div>
+<div>
+<label class="block font-headline text-body-sm font-semibold text-on-surface-variant mb-1">Monthly Rent</label>
+<div class="relative">
+<span class="absolute left-4 top-2.5 font-label text-outline">₹</span>
+<input class="w-full h-11 pl-8 pr-4 rounded-lg border border-outline-variant bg-surface text-body-md font-label" placeholder="12000" type="number">
+</div>
+</div>
+</div>
+<!-- ID Proof Upload -->
+<div class="space-y-2">
+
+
+</div>
+</section>
+<!-- Primary Action Button -->
+<div class="pb-12 pt-4">
+<button class="w-full bg-primary hover:bg-on-primary-container text-on-primary h-14 rounded-lg font-headline font-bold text-body-lg flex items-center justify-center gap-2 shadow-lg active:scale-[0.98] transition-all">
+                Add Tenant
+                <span class="material-symbols-outlined">person_add</span>
+</button>
+</div>
+</main>
+<!-- BottomNavBar -->
+<nav class="bg-surface-container-lowest dark:bg-surface-container-low fixed bottom-0 w-full z-50 border-t border-outline-variant dark:border-outline h-20 flex justify-around items-center px-2 pb-safe">
+<!-- Dashboard -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-secondary dark:hover:text-secondary-fixed transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-sm font-medium">Dashboard</span>
+</a>
+<!-- Rooms -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-secondary dark:hover:text-secondary-fixed transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-body text-body-sm font-medium">Rooms</span>
+</a>
+<!-- Tenants (Active State) -->
+<a class="flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-all duration-150" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-body text-body-sm font-medium">Tenants</span>
+</a>
+<!-- Finance -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-secondary dark:hover:text-secondary-fixed transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body text-body-sm font-medium">Finance</span>
+</a>
+<!-- Profile -->
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-secondary dark:hover:text-secondary-fixed transition-colors active:scale-95 duration-150" href="#">
+<span class="material-symbols-outlined">account_circle</span>
+<span class="font-body text-body-sm font-medium">Profile</span>
+</a>
+</nav>
+<!-- Feedback Micro-interactions -->
+<script>
+        document.querySelectorAll('button, a').forEach(el => {
+            el.addEventListener('click', (e) => {
+                // Check if it's the primary action button
+                if (el.innerText.includes('Add Tenant')) {
+                    const originalContent = el.innerHTML;
+                    el.innerHTML = `<span class="material-symbols-outlined animate-spin">sync</span> Saving...`;
+                    el.classList.add('opacity-80');
+                    el.style.pointerEvents = 'none';
+                    
+                    setTimeout(() => {
+                        el.innerHTML = `<span class="material-symbols-outlined">check_circle</span> Tenant Added!`;
+                        el.classList.replace('bg-primary', 'bg-emerald-600');
+                        setTimeout(() => {
+                            el.innerHTML = originalContent;
+                            el.classList.replace('bg-emerald-600', 'bg-primary');
+                            el.classList.remove('opacity-80');
+                            el.style.pointerEvents = 'auto';
+                        }, 2000);
+                    }, 1500);
+                }
+            });
+        });
+
+        // Simple Tab switching UI visual logic
+        const navItems = document.querySelectorAll('nav a');
+        navItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                navItems.forEach(i => {
+                    i.className = "flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant px-4 py-1 hover:text-secondary dark:hover:text-secondary-fixed transition-colors active:scale-95 duration-150";
+                    const span = i.querySelector('.material-symbols-outlined');
+                    if(span) span.style.fontVariationSettings = "'FILL' 0";
+                });
+                item.className = "flex flex-col items-center justify-center bg-secondary-container dark:bg-secondary text-on-secondary-container dark:text-on-secondary rounded-full px-4 py-1 active:scale-95 transition-all duration-150";
+                const activeSpan = item.querySelector('.material-symbols-outlined');
+                if(activeSpan) activeSpan.style.fontVariationSettings = "'FILL' 1";
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,17 @@
+[
+  {"id":"NS-T001","title":"Create the future web/PWA application scaffold","status":"Required","priority":"P1","area":"Application foundation","updated":"2026-09-05"},
+  {"id":"NS-T002","title":"Define the multi-property-ready database schema and access boundaries","status":"Required","priority":"P0","area":"Database and authorization","updated":"2026-09-05"},
+  {"id":"NS-T003","title":"Implement owner authentication and one-property MVP onboarding","status":"Required","priority":"P0","area":"Authentication and onboarding","updated":"2026-09-05"},
+  {"id":"NS-T004","title":"Implement owner-only MVP CRUD","status":"Required","priority":"P1","area":"Core operations","updated":"2026-09-05"},
+  {"id":"NS-T007","title":"Enforce the single encrypted Aadhaar-or-PAN move-in proof","status":"Required","priority":"P0","area":"KYC and privacy","updated":"2026-09-05"},
+  {"id":"NS-T012","title":"Apply WCAG 2.2 AA acceptance checks","status":"Required","priority":"P0","area":"Accessibility","updated":"2026-09-05"},
+  {"id":"NS-T016","title":"Complete architecture documentation","status":"Completed","priority":"P0","area":"Architecture","updated":"2026-09-05"},
+  {"id":"NS-T017","title":"Complete future implementation planning and stack decisions","status":"Blocked / decision needed","priority":"P0","area":"Planning","updated":"2026-09-05"},
+  {"id":"NS-T018","title":"Set up the real application codebase","status":"Completed","priority":"P0","area":"Application foundation","updated":"2026-09-05"},
+  {"id":"NS-T020","title":"Complete requirement discovery and PRD drafting","status":"Completed","priority":"P0","area":"Product","updated":"2026-09-05"},
+  {"id":"NS-T021","title":"Complete SRS drafting","status":"Completed","priority":"P0","area":"Requirements","updated":"2026-09-05"},
+  {"id":"NS-T022","title":"Complete design review of the PG management screen set","status":"Completed","priority":"P0","area":"Design","updated":"2026-09-05"},
+  {"id":"NS-T025","title":"Select an SMS vendor/provider","status":"Blocked / decision needed","priority":"P0","area":"Notifications","updated":"2026-09-05"},
+  {"id":"NS-T027","title":"Confirm Next.js hosting provider and final hosting/data-region choice","status":"Blocked / decision needed","priority":"P0","area":"Hosting","updated":"2026-09-05"},
+  {"id":"NS-T032","title":"Defer electricity billing logic","status":"Deferred","priority":"P2","area":"Billing","updated":"2026-09-05"}
+]

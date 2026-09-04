@@ -1,0 +1,386 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Tenant Directory - PG Manager</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "primary-fixed": "#dae2fd",
+                        "primary-container": "#131b2e",
+                        "primary": "#000000",
+                        "on-primary-fixed": "#131b2e",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "inverse-on-surface": "#eff1f3",
+                        "tertiary-container": "#0b1c30",
+                        "background": "#f7f9fb",
+                        "on-surface": "#191c1e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-primary-container": "#7c839b",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-secondary-fixed": "#001a42",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-surface-variant": "#45464d",
+                        "on-secondary-fixed-variant": "#004395",
+                        "on-secondary-container": "#fefcff",
+                        "inverse-primary": "#bec6e0",
+                        "secondary-fixed": "#d8e2ff",
+                        "outline": "#76777d",
+                        "inverse-surface": "#2d3133",
+                        "surface-variant": "#e0e3e5",
+                        "surface-tint": "#565e74",
+                        "surface-container-highest": "#e0e3e5",
+                        "error": "#ba1a1a",
+                        "on-secondary": "#ffffff",
+                        "surface-container-low": "#f2f4f6",
+                        "surface-dim": "#d8dadc",
+                        "secondary-container": "#2170e4",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f7f9fb",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "tertiary": "#000000",
+                        "surface-bright": "#f7f9fb",
+                        "on-tertiary-container": "#75859d",
+                        "primary-fixed-dim": "#bec6e0",
+                        "on-background": "#191c1e",
+                        "secondary": "#0058be",
+                        "outline-variant": "#c6c6cd",
+                        "error-container": "#ffdad6",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "surface-container": "#eceef0",
+                        "tertiary-fixed": "#d3e4fe",
+                        "surface-container-high": "#e6e8ea"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Hanken Grotesk"],
+                        "display": ["Hanken Grotesk"],
+                        "body": ["Hanken Grotesk"],
+                        "label": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body { font-family: 'Hanken Grotesk', sans-serif; }
+        .font-label { font-family: 'JetBrains Mono', monospace; }
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-24">
+<!-- TopAppBar -->
+<header class="w-full top-0 sticky z-50 bg-surface-container-lowest dark:bg-surface-container-low border-b border-outline-variant dark:border-outline shadow-sm">
+<div class="flex justify-between items-center px-4 py-3 w-full max-w-[1440px] mx-auto">
+<div class="flex items-center gap-2 cursor-pointer active:opacity-80 transition-opacity">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed" data-icon="business">business</span>
+<h1 class="font-headline font-bold text-headline-md text-primary dark:text-primary-fixed">Property Manager</h1>
+<span class="material-symbols-outlined text-on-surface-variant text-sm mt-1" data-icon="keyboard_arrow_down">keyboard_arrow_down</span>
+</div>
+<button class="text-primary font-body text-body-md hover:bg-surface-container-high px-3 py-1 rounded transition-colors">
+                Help
+            </button>
+</div>
+</header>
+<!-- Sub-navigation Tabs -->
+<nav class="w-full bg-surface-container-lowest border-b border-outline-variant sticky top-[65px] z-40">
+<div class="flex max-w-[1440px] mx-auto px-4 overflow-x-auto hide-scrollbar">
+<button class="px-6 py-3 border-b-2 border-secondary text-secondary font-label text-label-caps text-xs font-bold whitespace-nowrap">Management</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary font-label text-label-caps text-xs font-bold whitespace-nowrap transition-colors">Complaints</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary font-label text-label-caps text-xs font-bold whitespace-nowrap transition-colors">Reminders</button>
+<button class="px-6 py-3 border-b-2 border-transparent text-on-surface-variant hover:text-secondary font-label text-label-caps text-xs font-bold whitespace-nowrap transition-colors">Notify</button>
+</div>
+</nav>
+<main class="max-w-[1440px] mx-auto px-4 mt-6 space-y-6">
+<!-- Search and Filter Bar Section -->
+<div class="flex flex-col md:flex-row gap-4 items-center justify-between">
+<div class="relative w-full max-w-xl">
+<span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full pl-12 pr-4 py-3 bg-surface-container-lowest border border-outline-variant rounded-xl focus:ring-2 focus:ring-secondary focus:border-secondary outline-none transition-all font-body" placeholder="Search by name, phone, or room..." type="text">
+</div>
+<!-- Active/Past Filter Toggle -->
+<div class="bg-surface-container-low p-1 rounded-xl flex self-stretch md:self-auto border border-outline-variant">
+<button class="flex-1 md:flex-none px-6 py-2 rounded-lg font-body font-semibold text-sm transition-all text-on-surface-variant" id="btn-active">
+                    Active
+                </button>
+<button class="flex-1 md:flex-none px-6 py-2 rounded-lg font-body font-semibold text-sm transition-all hover:bg-surface-container-highest bg-surface-container-lowest shadow-sm text-secondary" id="btn-past">
+                    Past
+                </button>
+</div>
+</div>
+<!-- Tenant Directory Table -->
+<div class="flex flex-wrap items-center gap-4 bg-surface-container-low p-4 rounded-xl border border-outline-variant">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-on-surface-variant text-sm" data-icon="sort">sort</span>
+<select class="bg-transparent border-none text-sm font-body font-medium text-on-surface focus:ring-0 cursor-pointer">
+<option>Sort by Name (A-Z)</option>
+<option>Sort by Joining Date (Newest)</option>
+</select>
+</div>
+<div class="h-6 w-px bg-outline-variant hidden md:block"></div>
+<div class="flex flex-wrap items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="text-xs font-label text-label-caps text-on-surface-variant">Room Type:</span>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1 text-xs font-body focus:ring-2 focus:ring-secondary outline-none">
+<option>All Types</option>
+<option>Single</option>
+<option>Double</option>
+<option>Triple</option>
+</select>
+</div>
+<div class="flex items-center gap-2">
+<span class="text-xs font-label text-label-caps text-on-surface-variant">Floor:</span>
+<select class="bg-surface-container-lowest border border-outline-variant rounded-lg px-3 py-1 text-xs font-body focus:ring-2 focus:ring-secondary outline-none">
+<option>All Floors</option>
+<option>Floor 1</option>
+<option>Floor 2</option>
+<option>Floor 3</option>
+</select>
+</div>
+</div>
+</div><section class="bg-surface-container-lowest rounded-xl border border-outline-variant overflow-hidden shadow-sm">
+<div class="p-4 border-b border-outline-variant flex justify-between items-center bg-surface-bright">
+<h2 class="font-headline font-semibold text-headline-sm">Tenant Directory</h2>
+<div class="flex items-center gap-2"><span class="font-label text-label-caps text-on-surface-variant mr-2">156 Total</span></div>
+</div>
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse min-w-[800px]">
+<thead class="bg-surface-container-low">
+<tr>
+<th class="p-4 font-label text-label-caps text-xs text-on-surface-variant border-b border-outline-variant">Tenant</th>
+<th class="p-4 font-label text-label-caps text-xs text-on-surface-variant border-b border-outline-variant">Contact</th>
+<th class="p-4 font-label text-label-caps text-xs text-on-surface-variant border-b border-outline-variant">Room</th>
+<th class="p-4 font-label text-label-caps text-xs text-on-surface-variant border-b border-outline-variant">Sharing</th>
+<th class="p-4 font-label text-label-caps text-xs text-on-surface-variant border-b border-outline-variant">Joined On</th>
+<th class="p-4 border-b border-outline-variant"></th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" title="View Tenant Profile" data-href="/past-tenant-profile">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold shrink-0">AJ</div>
+<div class="font-body font-medium text-on-surface group-hover:text-secondary">Arjun Jaikumar</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-label text-xs text-on-surface-variant">+91 98765 43210</div>
+</td>
+<td class="p-4">
+<div class="font-label text-data-tabular font-medium">A-102</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-secondary text-[10px] font-bold uppercase tracking-wider">Double</span>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant">12 Mar 2023</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" title="View Tenant Profile" data-href="/past-tenant-profile">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold shrink-0">SR</div>
+<div class="font-body font-medium text-on-surface group-hover:text-secondary">Sara Rodrigues</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-label text-xs text-on-surface-variant">+91 98765 43211</div>
+</td>
+<td class="p-4">
+<div class="font-label text-data-tabular font-medium">B-204</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-wider">Single</span>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant">05 Jan 2024</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<!-- Row 3 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" title="View Tenant Profile" data-href="/past-tenant-profile">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-tertiary-fixed flex items-center justify-center text-on-tertiary-fixed font-bold shrink-0">MK</div>
+<div class="font-body font-medium text-on-surface group-hover:text-secondary">Michael Kim</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-label text-xs text-on-surface-variant">+91 98765 43212</div>
+</td>
+<td class="p-4">
+<div class="font-label text-data-tabular font-medium">C-301</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-tertiary-fixed text-on-tertiary-fixed text-[10px] font-bold uppercase tracking-wider">Triple</span>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant">20 Nov 2023</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" title="View Tenant Profile" data-href="/past-tenant-profile">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-secondary-fixed flex items-center justify-center text-on-secondary-fixed font-bold shrink-0">PS</div>
+<div class="font-body font-medium text-on-surface group-hover:text-secondary">Priya Sharma</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-label text-xs text-on-surface-variant">+91 98765 43213</div>
+</td>
+<td class="p-4">
+<div class="font-label text-data-tabular font-medium">A-201</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-secondary-container/10 text-secondary text-[10px] font-bold uppercase tracking-wider">Double</span>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant">15 Feb 2024</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="hover:bg-surface-container-low transition-colors cursor-pointer group" title="View Tenant Profile" data-href="/past-tenant-profile">
+<td class="p-4">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed font-bold shrink-0">RP</div>
+<div class="font-body font-medium text-on-surface group-hover:text-secondary">Rohan Patel</div>
+</div>
+</td>
+<td class="p-4">
+<div class="font-label text-xs text-on-surface-variant">+91 98765 43214</div>
+</td>
+<td class="p-4">
+<div class="font-label text-data-tabular font-medium">B-105</div>
+</td>
+<td class="p-4">
+<span class="px-2 py-1 rounded bg-primary-fixed text-on-primary-fixed text-[10px] font-bold uppercase tracking-wider">Single</span>
+</td>
+<td class="p-4">
+<div class="text-xs text-on-surface-variant">10 Oct 2023</div>
+</td>
+<td class="p-4 text-right">
+<span class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity" data-icon="chevron_right">chevron_right</span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Pagination-like Footer -->
+<div class="p-4 border-t border-outline-variant bg-surface-container-low flex justify-between items-center">
+<button class="text-on-surface-variant text-xs font-semibold hover:text-primary transition-colors disabled:opacity-50" disabled="">Previous</button>
+<div class="flex gap-2">
+<span class="w-6 h-6 rounded bg-secondary text-on-secondary text-[10px] flex items-center justify-center font-bold">1</span>
+<span class="w-6 h-6 rounded hover:bg-surface-variant text-[10px] flex items-center justify-center font-bold cursor-pointer">2</span>
+<span class="w-6 h-6 rounded hover:bg-surface-variant text-[10px] flex items-center justify-center font-bold cursor-pointer">3</span>
+</div>
+<button class="text-secondary text-xs font-semibold hover:underline">Next</button>
+</div>
+</section>
+</main>
+<!-- BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 rounded-t-lg bg-surface-container-lowest dark:bg-primary-container border-t border-outline-variant dark:border-outline shadow-sm">
+<div class="flex justify-around items-center w-full px-2 py-3 max-w-lg mx-auto">
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label text-label-caps text-[10px] mt-1 group-hover:text-secondary transition-colors">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined" data-icon="door_front">door_front</span>
+<span class="font-label text-label-caps text-[10px] mt-1 group-hover:text-secondary transition-colors">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center bg-secondary-container text-on-secondary-container rounded-full px-4 py-1 active:scale-95 transition-transform duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-label text-label-caps text-[10px] mt-1">Tenants</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label text-label-caps text-[10px] mt-1 group-hover:text-secondary transition-colors">Finance</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant active:scale-95 transition-transform duration-150 group" href="#">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+<span class="font-label text-label-caps text-[10px] mt-1 group-hover:text-secondary transition-colors">Profile</span>
+</a>
+</div>
+</nav>
+<!-- FAB for adding tenant -->
+<button class="fixed bottom-24 right-6 h-14 px-6 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center gap-2 hover:scale-105 active:scale-95 transition-transform z-40 hidden" id="fab-new-tenant">
+<span class="material-symbols-outlined text-2xl" data-icon="person_add">person_add</span>
+<span class="font-body font-bold text-sm whitespace-nowrap">New Tenant</span>
+</button>
+<script>
+        // Toggle Logic for Active/Past
+        const btnActive = document.getElementById('btn-active');
+        const btnPast = document.getElementById('btn-past');
+        const fabNewTenant = document.getElementById('fab-new-tenant');
+
+        btnActive.addEventListener('click', () => {
+            btnActive.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-secondary');
+            btnActive.classList.remove('text-on-surface-variant');
+            btnPast.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-secondary');
+            btnPast.classList.add('text-on-surface-variant');
+            
+            // Show FAB when Active tab is clicked
+            fabNewTenant.classList.remove('hidden');
+        });
+
+        btnPast.addEventListener('click', () => {
+            btnPast.classList.add('bg-surface-container-lowest', 'shadow-sm', 'text-secondary');
+            btnPast.classList.remove('text-on-surface-variant');
+            btnActive.classList.remove('bg-surface-container-lowest', 'shadow-sm', 'text-secondary');
+            btnActive.classList.add('text-on-surface-variant');
+            
+            // Hide FAB when Past tab is clicked
+            fabNewTenant.classList.add('hidden');
+        });
+
+        // Row interaction
+        document.querySelectorAll('tr').forEach(row => {
+            row.addEventListener('click', () => {
+                if(row.parentElement.tagName === 'TBODY') {
+                    row.classList.add('bg-secondary-fixed');
+                    setTimeout(() => {
+                        row.classList.remove('bg-secondary-fixed');
+                    }, 200);
+                }
+            });
+        });
+    </script>
+
+
+</body></html>

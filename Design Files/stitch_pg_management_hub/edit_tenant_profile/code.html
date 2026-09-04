@@ -1,0 +1,320 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Edit Tenant Profile - Efficient Residency</title>
+<!-- Google Fonts: Hanken Grotesk & JetBrains Mono -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "tertiary-fixed": "#d3e4fe",
+                        "tertiary-container": "#0b1c30",
+                        "surface-container-highest": "#e0e3e5",
+                        "primary-container": "#131b2e",
+                        "on-primary-fixed-variant": "#3f465c",
+                        "on-secondary": "#ffffff",
+                        "secondary": "#0058be",
+                        "secondary-fixed-dim": "#adc6ff",
+                        "surface-bright": "#f7f9fb",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed-variant": "#38485d",
+                        "outline-variant": "#c6c6cd",
+                        "on-tertiary": "#ffffff",
+                        "on-primary-container": "#7c839b",
+                        "surface-tint": "#565e74",
+                        "on-error-container": "#93000a",
+                        "secondary-fixed": "#d8e2ff",
+                        "surface-dim": "#d8dadc",
+                        "primary": "#000000",
+                        "error-container": "#ffdad6",
+                        "inverse-primary": "#bec6e0",
+                        "surface-container": "#eceef0",
+                        "surface-variant": "#e0e3e5",
+                        "on-secondary-fixed": "#001a42",
+                        "inverse-surface": "#2d3133",
+                        "error": "#ba1a1a",
+                        "secondary-container": "#2170e4",
+                        "background": "#f7f9fb",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-fixed": "#dae2fd",
+                        "on-tertiary-container": "#75859d",
+                        "on-error": "#ffffff",
+                        "inverse-on-surface": "#eff1f3",
+                        "on-surface-variant": "#45464d",
+                        "on-primary-fixed": "#131b2e",
+                        "tertiary-fixed-dim": "#b7c8e1",
+                        "on-tertiary-fixed": "#0b1c30",
+                        "on-secondary-container": "#fefcff",
+                        "surface-container-low": "#f2f4f6",
+                        "on-surface": "#191c1e",
+                        "on-secondary-fixed-variant": "#004395",
+                        "surface-container-high": "#e6e8ea",
+                        "outline": "#76777d",
+                        "tertiary": "#000000",
+                        "on-background": "#191c1e",
+                        "surface": "#f7f9fb",
+                        "primary-fixed-dim": "#bec6e0"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "fontFamily": {
+                        "headline": ["Hanken Grotesk"],
+                        "display": ["Hanken Grotesk"],
+                        "body": ["Hanken Grotesk"],
+                        "label": ["JetBrains Mono"]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+            text-transform: none;
+            letter-spacing: normal;
+            word-wrap: normal;
+            white-space: nowrap;
+            direction: ltr;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            -webkit-font-smoothing: antialiased;
+        }
+        .label-caps {
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface min-h-screen pb-32">
+<!-- Top App Bar -->
+<header class="bg-surface sticky top-0 z-50 flex justify-between items-center w-full px-4 md:px-10 h-16 border-b border-outline-variant">
+<div class="flex items-center gap-4">
+<button class="p-2 hover:bg-surface-container-high rounded-full transition-colors active:scale-95">
+<span class="material-symbols-outlined text-primary">arrow_back</span>
+</button>
+<h1 class="font-headline text-headline-sm font-semibold text-primary">Edit Tenant Profile</h1>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">notifications</span>
+</div>
+</header>
+<main class="max-w-4xl mx-auto px-4 md:px-0 py-8">
+<form class="space-y-8">
+<!-- Profile Photo Section -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm flex flex-col md:flex-row items-center gap-8">
+<div class="relative group">
+<div class="w-32 h-32 rounded-full overflow-hidden border-4 border-surface-container shadow-inner">
+<img class="w-full h-full object-cover" data-alt="A professional headshot of a young adult male tenant with a friendly expression, captured in high-resolution with soft studio lighting. The background is a neutral, clean gray, emphasizing a corporate and reliable aesthetic. The image is crisp, with natural skin tones and a modern, minimalist feel, aligning with a high-trust property management interface." src="https://lh3.googleusercontent.com/aida-public/AB6AXuDXV11xmPqM8oU9Llg__erlXtEL6rW1drhprR1zFLm5i-QgOFFOC_y9O78YdeQt4ycwCKxGchvxDErnMdJyHBBU9zoOA4nvgUeJyWST2q1VUVQvqmJvxjobDOlmTFtzatxeSDhlDtSJpMt7wAp7Rev908gmTKvvJqbxV5zG-4FqA0_3pu9NrDwa69A0nLgVMywkoEBEQvziI_HMM27eoBNttm2d4lDRvU45KTBLycKU-l1qDpzJuu4LtekNe1BQuAYbV79WmWWw2au1">
+</div>
+<button class="absolute bottom-0 right-0 bg-secondary p-2 rounded-full text-on-secondary shadow-lg hover:bg-secondary-container transition-all active:scale-90" type="button">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</button>
+</div>
+<div class="text-center md:text-left">
+<h2 class="text-headline-sm font-semibold text-primary mb-1">Profile Picture</h2>
+<p class="text-body-md text-on-surface-variant mb-4">Update the tenant's profile image for identification and security purposes.</p>
+<div class="flex flex-wrap gap-3 justify-center md:justify-start">
+<button class="px-4 py-2 bg-secondary text-on-secondary text-body-sm font-medium rounded-lg hover:bg-secondary-container transition-all" type="button">Change Photo</button>
+<button class="px-4 py-2 border border-outline text-on-surface-variant text-body-sm font-medium rounded-lg hover:bg-surface-container-high transition-all" type="button">Remove</button>
+</div>
+</div>
+</section>
+<!-- Personal Information -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">person</span>
+<h2 class="text-headline-sm font-semibold text-primary">Personal Information</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="flex flex-col gap-1.5">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Full Name</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" type="text" value="Arjun Malhotra">
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Phone Number</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant text-body-md">+91</span>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg pl-12 pr-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" type="tel" value="98765 43210">
+</div>
+</div>
+<div class="flex flex-col gap-1.5 md:col-span-2">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Email Address</label>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" type="email" value="arjun.malhotra@email.com">
+</div>
+</div>
+</section>
+<!-- KYC Documents -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex justify-between items-center mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<h2 class="text-headline-sm font-semibold text-primary">KYC Documents</h2>
+</div>
+<button class="flex items-center gap-2 text-secondary font-semibold text-body-sm hover:underline" type="button">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        Upload New
+                    </button>
+</div>
+<div class="space-y-3">
+<!-- Document Row -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg group hover:border-secondary transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-secondary-fixed rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">badge</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Aadhar Card</p>
+<p class="text-[11px] label-caps text-on-surface-variant">AADHAR_AM_44.PDF • 1.2 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-surface-container-highest rounded-full transition-all" title="Replace" type="button">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Delete" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Document Row -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg group hover:border-secondary transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-secondary-fixed rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">business_center</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Employment Letter</p>
+<p class="text-[11px] label-caps text-on-surface-variant">OFFER_LETTER_2023.PDF • 850 KB</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-surface-container-highest rounded-full transition-all" title="Replace" type="button">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Delete" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+<!-- Document Row -->
+<div class="flex items-center justify-between p-4 bg-surface-container-low border border-outline-variant rounded-lg group hover:border-secondary transition-all">
+<div class="flex items-center gap-4">
+<div class="w-10 h-10 bg-secondary-fixed rounded flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">contract</span>
+</div>
+<div>
+<p class="text-body-md font-semibold text-on-surface">Lease Agreement</p>
+<p class="text-[11px] label-caps text-on-surface-variant">RENT_AGREEMENT_V1.PDF • 2.4 MB</p>
+</div>
+</div>
+<div class="flex items-center gap-1">
+<button class="p-2 text-on-surface-variant hover:text-secondary hover:bg-surface-container-highest rounded-full transition-all" title="Replace" type="button">
+<span class="material-symbols-outlined text-[20px]">sync</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-error hover:bg-error-container/20 rounded-full transition-all" title="Delete" type="button">
+<span class="material-symbols-outlined text-[20px]">delete</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Lease & Financial Details -->
+<section class="bg-surface-container-lowest p-6 rounded-xl border border-outline-variant shadow-sm">
+<div class="flex items-center gap-3 mb-6">
+<span class="material-symbols-outlined text-secondary">calendar_today</span>
+<h2 class="text-headline-sm font-semibold text-primary">Lease Details</h2>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+<div class="flex flex-col gap-1.5">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Lease Start Date</label>
+<div class="relative">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant pointer-events-none">event</span>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none opacity-70 cursor-not-allowed" type="date" value="2023-08-01" readonly="true">
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Lease End Date</label>
+<div class="relative">
+<span class="absolute right-4 top-1/2 -translate-y-1/2 material-symbols-outlined text-on-surface-variant pointer-events-none">event</span>
+<input class="w-full bg-surface-bright border border-outline-variant rounded-lg px-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" type="date" value="2024-07-31">
+</div>
+</div>
+<div class="flex flex-col gap-1.5">
+<label class="text-body-sm font-semibold text-on-surface-variant px-1">Monthly Rent</label>
+<div class="relative">
+<span class="absolute left-4 top-1/2 -translate-y-1/2 font-label text-on-surface-variant">₹</span>
+<input class="w-full font-label bg-surface-bright border border-outline-variant rounded-lg pl-8 pr-4 py-3 text-body-md focus:ring-2 focus:ring-secondary focus:border-secondary transition-all outline-none" type="text" value="18,500">
+</div>
+</div>
+</div>
+</section>
+<!-- Action Buttons -->
+<div class="flex flex-col-reverse md:flex-row justify-end gap-4 pt-4">
+<button class="w-full md:w-auto px-8 py-3 border-2 border-outline-variant text-on-surface font-semibold rounded-lg hover:bg-surface-container-high transition-all active:scale-95" type="button">
+                    Cancel
+                </button>
+<button class="w-full md:w-auto px-12 py-3 bg-secondary text-on-secondary font-semibold rounded-lg shadow-lg hover:bg-secondary-container transition-all active:scale-95" type="submit">
+                    Save Changes
+                </button>
+</div>
+</form>
+</main>
+<!-- Bottom Navigation Bar (Fixed for Mobile/Responsive) -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center h-16 px-2 bg-surface border-t border-outline-variant z-50">
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors w-full h-full" href="#">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-sm">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors w-full h-full" href="#">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-body text-body-sm">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary font-semibold w-full h-full" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">groups</span>
+<span class="font-body text-body-sm">Tenants</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors w-full h-full" href="#">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body text-body-sm">Finance</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant hover:bg-surface-container transition-colors w-full h-full" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body text-body-sm">Profile</span>
+</a>
+</nav>
+<script>
+        // Simple form prevention for demo
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Tenant Profile Updated Successfully!');
+        });
+
+        // Date input helper to ensure they look nice in all browsers
+        const dateInputs = document.querySelectorAll('input[type="date"]');
+        dateInputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.showPicker();
+            });
+        });
+    </script>
+
+
+</body></html>

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NexStay internal dashboard</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="eyebrow">NEXSTAY · INTERNAL</p>
+      <h1>Project dashboard</h1>
+      <p class="muted">A lightweight view of the documented workstream.</p>
+    </div>
+    <div class="toolbar">
+      <label class="toggle"><input id="autoRefresh" type="checkbox"> Auto-refresh <span>(60s)</span></label>
+      <button id="refreshButton" class="button" type="button">Refresh</button>
+      <span id="lastUpdated" class="muted" aria-live="polite">Not loaded</span>
+    </div>
+  </header>
+
+  <main>
+    <section id="notice" class="notice" role="status">
+      This dashboard is a static JSON view. It does not capture tool calls automatically.
+      Record changes by updating <code>data/tasks.json</code> and appending to <code>data/activity.json</code>.
+    </section>
+
+    <section id="summary" class="summary" aria-label="Summary counts"></section>
+
+    <section class="controls" aria-label="Task filters">
+      <label>Search <input id="search" type="search" placeholder="ID, title, area…"></label>
+      <label>Status <select id="statusFilter"><option value="all">All statuses</option></select></label>
+      <label>Priority <select id="priorityFilter"><option value="all">All priorities</option></select></label>
+    </section>
+
+    <div class="dashboard-grid">
+      <section class="panel tasks-panel">
+        <div class="panel-heading"><div><p class="eyebrow">WORK QUEUE</p><h2>Tasks by status</h2></div><span id="taskCount" class="pill"></span></div>
+        <div id="taskGroups" class="task-groups"></div>
+      </section>
+      <aside class="panel activity-panel">
+        <div class="panel-heading"><div><p class="eyebrow">AUDIT TRAIL</p><h2>Recent activity</h2></div></div>
+        <ol id="activityList" class="activity-list"></ol>
+      </aside>
+    </div>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,353 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head></head><body class="text-on-surface bg-background min-h-screen flex flex-col">```html
+
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Efficient Residency - Notify</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                "on-primary": "#ffffff",
+                "on-background": "#191c1e",
+                "inverse-surface": "#2d3133",
+                "on-secondary-fixed-variant": "#004395",
+                "on-primary-fixed": "#131b2e",
+                "outline": "#76777d",
+                "background": "#f7f9fb",
+                "surface-container-high": "#e6e8ea",
+                "surface-container": "#eceef0",
+                "on-secondary": "#ffffff",
+                "on-primary-fixed-variant": "#3f465c",
+                "on-tertiary-fixed": "#0b1c30",
+                "secondary-fixed-dim": "#adc6ff",
+                "secondary": "#0058be",
+                "on-error": "#ffffff",
+                "on-error-container": "#93000a",
+                "secondary-fixed": "#d8e2ff",
+                "inverse-on-surface": "#eff1f3",
+                "tertiary-container": "#0b1c30",
+                "surface-variant": "#e0e3e5",
+                "error": "#ba1a1a",
+                "surface-container-highest": "#e0e3e5",
+                "primary-fixed-dim": "#bec6e0",
+                "inverse-primary": "#bec6e0",
+                "tertiary-fixed": "#d3e4fe",
+                "primary": "#000000",
+                "on-tertiary-fixed-variant": "#38485d",
+                "primary-container": "#131b2e",
+                "on-secondary-container": "#fefcff",
+                "surface-container-lowest": "#ffffff",
+                "surface": "#f7f9fb",
+                "tertiary-fixed-dim": "#b7c8e1",
+                "surface-tint": "#565e74",
+                "secondary-container": "#2170e4",
+                "on-secondary-fixed": "#001a42",
+                "surface-dim": "#d8dadc",
+                "on-tertiary-container": "#75859d",
+                "surface-container-low": "#f2f4f6",
+                "on-primary-container": "#7c839b",
+                "outline-variant": "#c6c6cd",
+                "on-tertiary": "#ffffff",
+                "error-container": "#ffdad6",
+                "tertiary": "#000000",
+                "on-surface-variant": "#45464d",
+                "on-surface": "#191c1e",
+                "surface-bright": "#f7f9fb",
+                "primary-fixed": "#dae2fd"
+            },
+            "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+            },
+            "fontFamily": {
+                "headline": ["Hanken Grotesk"],
+                "display": ["Hanken Grotesk"],
+                "body": ["Hanken Grotesk"],
+                "label": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+            background-color: #f7f9fb;
+        }
+        .hide-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+        .hide-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-4 h-16 bg-surface dark:bg-on-background border-b border-outline-variant dark:border-outline">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-primary dark:text-inverse-primary" data-icon="home_work">home_work</span>
+<h1 class="font-headline font-bold text-headline-md text-primary dark:text-on-primary-fixed">Efficient Residency</h1>
+</div>
+<button class="p-2 rounded-full hover:bg-surface-container-high dark:hover:bg-inverse-surface transition-colors active:scale-95 duration-100">
+<span class="material-symbols-outlined text-on-surface-variant dark:text-surface-variant" data-icon="notifications">notifications</span>
+</button>
+</header>
+<!-- Sub-Navigation (Management, Complaints, Reminders, Notify) -->
+<nav class="fixed top-16 w-full z-40 bg-surface-container-lowest border-b border-outline-variant">
+<div class="max-w-[1440px] mx-auto px-4 md:px-10 flex items-center gap-8 h-12 overflow-x-auto hide-scrollbar">
+<!-- Management -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+<span class="text-body-md font-medium">Management</span>
+</a>
+<!-- Complaints -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+<span class="text-body-md font-medium">Complaints</span>
+</a>
+<!-- Reminders -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+<span class="text-body-md font-medium">Reminders</span>
+</a>
+<!-- Notify (Active) -->
+<a class="text-secondary font-semibold h-full flex items-center gap-2 whitespace-nowrap active-nav-border" href="#">
+<span class="text-body-md">Notify</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow md:p-8 max-w-5xl mx-auto w-full mb-20 px-4 pt-4 mt-12">
+<!-- Quick Rent Alerts Card (The Bento Top Anchor) -->
+<section class="mb-8 mt-12">
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-6 shadow-sm overflow-hidden relative">
+<!-- Subtle Background Texture -->
+<div class="absolute top-0 right-0 opacity-10 pointer-events-none -mt-4 -mr-4">
+<span class="material-symbols-outlined text-[120px]" data-icon="campaign">campaign</span>
+</div>
+<div class="relative z-10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-secondary" data-icon="bolt">bolt</span>
+<h2 class="font-headline font-bold text-headline-sm text-primary">Quick Rent Alerts</h2>
+</div>
+<p class="text-on-surface-variant text-body-md mb-6">Messages are pre-filled based on outstanding balance. Simply select the recipients and broadcast immediately.</p>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
+<div class="space-y-2">
+<label class="block font-label text-label-caps text-on-surface-variant ml-1">Select Rooms or Tenants</label>
+<div class="relative">
+<select class="w-full h-12 pl-4 pr-10 appearance-none bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" id="recipient-type-select">
+<option>All Overdue Tenants (12)</option>
+<option>Block A - Ground Floor</option>
+<option>Block B - Single Rooms</option>
+<option>Specific Room...</option>
+<option>Specific Tenant...</option></select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<div class="space-y-4 md:col-span-2" id="conditional-fields">
+<!-- Room Selection (Visible when 'Specific Room...' is selected) -->
+<div class="space-y-2 hidden" id="room-selection-container">
+<label class="block font-label text-label-caps text-on-surface-variant ml-1">Select Room Number</label>
+<div class="relative">
+<select class="w-full h-12 pl-4 pr-10 appearance-none bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary transition-all">
+<option>Select Room...</option>
+<option>Room 101</option>
+<option>Room 102</option>
+<option>Room 201</option>
+</select>
+<span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+<!-- Searchable Tenant Selection (Visible when Room or 'Specific Tenant' is selected) -->
+<div class="space-y-2 hidden" id="tenant-selection-container">
+<label class="block font-label text-label-caps text-on-surface-variant ml-1">Select Tenant Name</label>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-3 top-3 pointer-events-none text-on-surface-variant" data-icon="search">search</span>
+<input class="w-full h-12 pl-10 pr-4 bg-surface-container-low border border-outline-variant rounded-lg text-body-md focus:border-secondary focus:ring-1 focus:ring-secondary transition-all" placeholder="Search tenant name..." type="text">
+</div>
+</div>
+</div><button class="h-12 bg-secondary text-on-secondary font-headline font-semibold rounded-lg px-8 hover:bg-secondary-container hover:text-on-secondary-container transition-all active:scale-95 flex items-center justify-center gap-2 md:col-span-2">
+<span class="material-symbols-outlined" data-icon="send">send</span>
+                            Send Alert
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Broadcast History Section -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h3 class="font-headline font-bold text-headline-sm text-primary">Broadcast History</h3>
+<div class="flex gap-2">
+<button class="p-2 rounded-lg border border-outline-variant text-on-surface-variant hover:bg-surface-container">
+<span class="material-symbols-outlined text-sm" data-icon="filter_list">filter_list</span>
+</button>
+</div>
+</div>
+<!-- Sent Notifications List (Asymmetric/Structured Layout) -->
+<div class="flex gap-6 border-b border-outline-variant mb-4 px-1 overflow-x-auto hide-scrollbar"><button class="font-body text-body-md text-secondary font-semibold border-b-2 border-secondary pb-2 whitespace-nowrap">General</button><button class="font-body text-body-md text-on-surface-variant hover:text-primary transition-all pb-2 whitespace-nowrap">Rent Related</button></div><div class="space-y-3">
+<!-- Entry 1 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-secondary transition-all"><div class="flex-grow">
+<h4 class="font-headline font-bold text-on-surface mb-1">Facility Maintenance Schedule</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Facility maintenance schedule for upcoming Sunday. Water supply may be interrupted during the morning hours.</p>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Target</span>
+<span class="font-label text-label-caps text-secondary text-xs">ALL TENANTS</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Sent On</span>
+<span class="font-label text-data-tabular text-body-sm text-on-surface-variant">Today, 09:45 AM</span>
+</div>
+</div>
+</div></div>
+<!-- Entry 2 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-secondary transition-all"><div class="flex-grow">
+<h4 class="font-headline font-bold text-on-surface mb-1">Electric Bill Settlement</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Reminder: Electric bill settlement for June 2023 is now due. Please clear outstanding dues to avoid late fees.</p>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Target</span>
+<span class="font-label text-label-caps text-secondary text-xs">BLOCK B</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Sent On</span>
+<span class="font-label text-data-tabular text-body-sm text-on-surface-variant">12 Jun, 02:10 PM</span>
+</div>
+</div>
+</div></div>
+<!-- Entry 3 -->
+<div class="group bg-surface-container-lowest border border-outline-variant rounded-lg p-4 flex flex-col md:flex-row md:items-center justify-between gap-4 hover:border-secondary transition-all"><div class="flex-grow">
+<h4 class="font-headline font-bold text-on-surface mb-1">Lease Renewal Document</h4>
+<p class="text-body-md text-on-surface-variant mb-4">Lease renewal document is ready for your signature at the reception office. Please visit during office hours.</p>
+<div class="flex items-center justify-between mt-4 pt-4 border-t border-outline-variant">
+<div class="flex flex-col">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Target</span>
+<span class="font-label text-label-caps text-secondary text-xs">ROOM 102 (A. KHAN)</span>
+</div>
+<div class="flex flex-col items-end">
+<span class="text-[10px] font-label text-label-caps text-on-surface-variant opacity-70">Sent On</span>
+<span class="font-label text-data-tabular text-body-sm text-on-surface-variant">10 Jun, 11:00 AM</span>
+</div>
+</div>
+</div></div>
+</div>
+<!-- Empty state illustration hint (Subtle) -->
+<div class="mt-12 flex flex-col items-center opacity-30">
+<div class="w-24 h-24 rounded-full border-4 border-dashed border-outline-variant flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-4xl" data-icon="history">history</span>
+</div>
+<p class="text-body-sm font-label text-label-caps">End of recent logs</p>
+</div>
+</section>
+</main>
+<!-- Floating Action Button (FAB) -->
+
+<!-- BottomNavBar -->
+<button class="fixed bottom-20 right-4 z-50 w-14 h-14 bg-secondary text-on-secondary rounded-full shadow-lg flex items-center justify-center hover:bg-secondary-container hover:text-on-secondary-container transition-all active:scale-95" aria-label="Add and send reminders">
+  <span class="material-symbols-outlined text-2xl" data-icon="add">add</span>
+</button><nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 px-2 bg-surface dark:bg-on-background border-t border-outline-variant dark:border-outline shadow-lg">
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="dashboard">dashboard</span>
+<span class="font-label text-label-caps text-[10px]">Dashboard</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="bed">bed</span>
+<span class="font-label text-label-caps text-[10px]">Rooms</span>
+</a>
+<a class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed font-bold active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="group" style="font-variation-settings: &quot;FILL&quot; 1;">group</span>
+<span class="font-label text-label-caps text-[10px]" style="font-variation-settings: &quot;FILL&quot; 1;">Tenants</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="payments">payments</span>
+<span class="font-label text-label-caps text-[10px]">Finance</span>
+</a>
+<a class="flex flex-col items-center justify-center text-on-surface-variant dark:text-surface-variant hover:text-secondary transition-colors active:scale-90 duration-150" href="#">
+<span class="material-symbols-outlined" data-icon="person">person</span>
+<span class="font-label text-label-caps text-[10px]">Profile</span>
+</a>
+</nav>
+<!-- Side Decoration (Web Only) -->
+<aside class="hidden lg:block fixed left-0 top-32 h-[calc(100vh-160px)] w-72 bg-surface-container-low dark:bg-on-background rounded-r-xl shadow-sm border-r border-outline-variant z-10">
+<div class="flex flex-col py-4 gap-1">
+<div class="px-6 py-4 mb-2">
+<h4 class="font-headline font-bold text-primary">Quick Actions</h4>
+</div>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="settings_applications">settings_applications</span>
+<span class="font-body text-body-md">Management</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="report_problem">report_problem</span>
+<span class="font-body text-body-md">Complaints</span>
+</a>
+<a class="flex items-center gap-3 text-on-surface-variant px-4 py-3 mx-2 hover:bg-surface-container-high transition-all rounded-lg" href="#">
+<span class="material-symbols-outlined" data-icon="event_note">event_note</span>
+<span class="font-body text-body-md">Reminders</span>
+</a>
+<a class="flex items-center gap-3 bg-secondary-container text-on-secondary-container rounded-full px-4 py-3 mx-2 active:translate-x-1 duration-200 shadow-sm" href="#">
+<span class="material-symbols-outlined" data-icon="campaign" style="font-variation-settings: 'FILL' 1;">campaign</span>
+<span class="font-body text-body-md font-medium">Notify</span>
+</a>
+</div>
+</aside>
+<script>
+        // Simple Interaction Logic
+        document.querySelectorAll('button').forEach(btn => {
+            btn.addEventListener('click', () => {
+                // Mock interaction feedback
+                const ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                btn.appendChild(ripple);
+                setTimeout(() => ripple.remove(), 600);
+            });
+        });
+    </script>
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const typeSelect = document.getElementById('recipient-type-select');
+    const roomContainer = document.getElementById('room-selection-container');
+    const tenantContainer = document.getElementById('tenant-selection-container');
+
+    function updateVisibility() {
+      const value = typeSelect.value;
+      if (value === 'Specific Room...') {
+        roomContainer.classList.remove('hidden');
+        tenantContainer.classList.add('hidden');
+      } else if (value === 'Specific Tenant...') {
+        tenantContainer.classList.remove('hidden');
+        roomContainer.classList.add('hidden');
+      } else {
+        roomContainer.classList.add('hidden');
+        tenantContainer.classList.add('hidden');
+      }
+    }
+
+    if (typeSelect) {
+      typeSelect.addEventListener('change', updateVisibility);
+      updateVisibility(); // Run on load
+    }
+  });
+</script>
+
+```
+
+
+
+
+
+
+
+</body></html>

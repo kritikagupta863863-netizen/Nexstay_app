@@ -1,0 +1,371 @@
+<!DOCTYPE html><html class="light" lang="en" style=""><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Reminders - Royal Residency</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<!-- Icons -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<!-- Tailwind -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "surface-container-high": "#e6e8ea",
+                    "surface-container-lowest": "#ffffff",
+                    "inverse-primary": "#bec6e0",
+                    "inverse-on-surface": "#eff1f3",
+                    "error-container": "#ffdad6",
+                    "surface-tint": "#565e74",
+                    "surface": "#f7f9fb",
+                    "primary-fixed": "#dae2fd",
+                    "error": "#ba1a1a",
+                    "tertiary-fixed": "#d3e4fe",
+                    "secondary-fixed": "#d8e2ff",
+                    "primary-container": "#131b2e",
+                    "on-primary-container": "#7c839b",
+                    "on-background": "#191c1e",
+                    "inverse-surface": "#2d3133",
+                    "surface-container": "#eceef0",
+                    "tertiary-container": "#0b1c30",
+                    "on-tertiary": "#ffffff",
+                    "on-primary": "#ffffff",
+                    "secondary-container": "#2170e4",
+                    "background": "#f7f9fb",
+                    "surface-container-highest": "#e0e3e5",
+                    "on-tertiary-fixed": "#0b1c30",
+                    "on-secondary-fixed-variant": "#004395",
+                    "on-tertiary-fixed-variant": "#38485d",
+                    "on-primary-fixed": "#131b2e",
+                    "on-error-container": "#93000a",
+                    "outline": "#76777d",
+                    "surface-dim": "#d8dadc",
+                    "on-tertiary-container": "#75859d",
+                    "outline-variant": "#c6c6cd",
+                    "on-surface": "#191c1e",
+                    "surface-container-low": "#f2f4f6",
+                    "on-secondary": "#ffffff",
+                    "on-primary-fixed-variant": "#3f465c",
+                    "primary-fixed-dim": "#bec6e0",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-secondary-fixed": "#001a42",
+                    "primary": "#000000",
+                    "surface-bright": "#f7f9fb",
+                    "tertiary": "#000000",
+                    "tertiary-fixed-dim": "#b7c8e1",
+                    "secondary": "#0058be",
+                    "on-error": "#ffffff",
+                    "surface-variant": "#e0e3e5",
+                    "on-surface-variant": "#45464d",
+                    "on-secondary-container": "#fefcff"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "fontFamily": {
+                    "headline": ["Hanken Grotesk"],
+                    "display": ["Hanken Grotesk"],
+                    "body": ["Hanken Grotesk"],
+                    "label": ["JetBrains Mono"]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .active-nav-border {
+            position: relative;
+        }
+        .active-nav-border::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background-color: #0058be;
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(8px);
+        }
+    </style>
+</head>
+<body class="bg-surface font-body text-on-surface">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 bg-surface dark:bg-surface-dim border-b border-outline-variant dark:border-outline flex items-center justify-between px-4 md:px-10 h-16">
+<div class="flex items-center gap-3 transition-colors duration-200 cursor-pointer">
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">business</span>
+<span class="font-headline text-headline-sm font-bold text-on-surface dark:text-inverse-on-surface">Royal Residency</span>
+</div>
+<div class="flex items-center gap-2 hover:bg-surface-container-high dark:hover:bg-surface-container px-3 py-1 rounded-lg transition-colors duration-200 cursor-pointer">
+<div class="w-8 h-8 rounded-full bg-secondary-fixed flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary text-sm">person</span>
+</div>
+<span class="material-symbols-outlined text-primary dark:text-primary-fixed">arrow_drop_down</span>
+</div>
+</header>
+<!-- Sub-Navigation (Management Hub) -->
+<nav class="fixed top-16 w-full z-40 bg-surface-container-lowest border-b border-outline-variant">
+<div class="max-w-[1440px] mx-auto px-4 md:px-10 flex items-center gap-8 h-12 overflow-x-auto no-scrollbar">
+<!-- Management -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+
+<span class="text-body-md font-medium">Management</span>
+</a>
+<!-- Complaints -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+
+<span class="text-body-md font-medium">Complaints</span>
+</a>
+<!-- Reminders (Active) -->
+<a class="text-secondary font-semibold h-full flex items-center gap-2 whitespace-nowrap active-nav-border" href="#">
+
+<span class="text-body-md">Reminders</span>
+</a>
+<!-- Notify -->
+<a class="text-on-surface-variant hover:text-primary transition-colors h-full flex items-center gap-2 whitespace-nowrap" href="#">
+
+<span class="text-body-md font-medium">Notify</span>
+</a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="pt-32 md:pb-12 px-4 md:px-10 max-w-[1440px] mx-auto min-h-screen pb-8">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-8 gap-4">
+<div>
+<h1 class="font-headline text-display-lg font-bold text-primary mb-1">Tenant Reminders</h1>
+<p class="text-on-surface-variant text-body-lg">Automate follow-ups and keep your residency running smoothly.</p>
+</div>
+<!-- Desktop Action -->
+<button class="hidden md:flex items-center gap-2 bg-secondary text-on-secondary px-6 py-3 rounded-xl hover:bg-secondary-container transition-all shadow-sm active:scale-95" onclick="toggleModal('reminder-modal')">
+<span class="material-symbols-outlined">add</span>
+<span class="font-semibold">Create New Reminder</span>
+</button>
+</div>
+<!-- Bento Grid for Stats & Quick Actions -->
+
+<!-- Active Reminders List -->
+<section>
+<div class="flex items-center justify-between mb-4">
+<h2 class="font-headline text-headline-sm font-semibold">Active Reminders</h2>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">filter_list</span>
+</button>
+<button class="p-2 rounded-lg hover:bg-surface-container-high text-on-surface-variant">
+<span class="material-symbols-outlined">search</span>
+</button>
+</div>
+</div>
+<!-- List Cards -->
+<div class="space-y-4">
+<!-- Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all hover:border-secondary/30 hover:shadow-sm">
+<div class="flex gap-4 items-center">
+
+<div>
+<h4 class="font-semibold text-body-lg text-primary">Rent Payment</h4>
+<div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">group</span>
+                                    All Tenants
+                                </span>
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">event</span>
+                                    Monthly on 1st
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-label text-label-caps text-on-surface-variant">ACTIVE</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all hover:border-secondary/30 hover:shadow-sm">
+<div class="flex gap-4 items-center">
+
+<div>
+<h4 class="font-semibold text-body-lg text-primary">Document Update</h4>
+<div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">meeting_room</span>
+                                    Room B-204
+                                </span>
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">schedule</span>
+                                    Daily at 10 AM
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+<span class="font-label text-label-caps text-on-surface-variant">ENDING SOON</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+<!-- Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl p-4 md:p-6 flex flex-col md:flex-row items-start md:items-center justify-between gap-4 transition-all hover:border-secondary/30 hover:shadow-sm">
+<div class="flex gap-4 items-center">
+
+<div>
+<h4 class="font-semibold text-body-lg text-primary">Maintenance Follow-up</h4>
+<div class="flex flex-wrap gap-x-4 gap-y-1 mt-1">
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">person</span>
+                                    Sarah Johnson
+                                </span>
+<span class="flex items-center gap-1 text-on-surface-variant text-body-sm">
+<span class="material-symbols-outlined text-[16px]">history_toggle_off</span>
+                                    Every 2 days
+                                </span>
+</div>
+</div>
+</div>
+<div class="flex items-center gap-3 w-full md:w-auto justify-between md:justify-end">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+<span class="font-label text-label-caps text-on-surface-variant">ACTIVE</span>
+</div>
+<button class="p-2 rounded-lg hover:bg-surface-container-high">
+<span class="material-symbols-outlined">more_vert</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Mobile Navigation Shell -->
+<footer class="md:hidden fixed bottom-0 left-0 w-full bg-surface-container-lowest dark:bg-surface-container-high border-t border-outline-variant dark:border-outline py-2 pb-safe z-50 flex justify-around items-center">
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-container-highest transition-transform duration-150 scale-95">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body text-body-sm">Dashboard</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-container-highest transition-transform duration-150 scale-95">
+<span class="material-symbols-outlined">bed</span>
+<span class="font-body text-body-sm">Rooms</span>
+</div>
+<!-- Tenants - Active -->
+<div class="flex flex-col items-center justify-center text-secondary dark:text-secondary-fixed-dim font-semibold bg-secondary-container/10 rounded-full px-3 py-1 transition-transform duration-150 scale-95">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">group</span>
+<span class="font-body text-body-sm">Tenants</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-container-highest transition-transform duration-150 scale-95">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-body text-body-sm">Finance</span>
+</div>
+<div class="flex flex-col items-center justify-center text-on-surface-variant dark:text-outline-variant hover:bg-surface-container dark:hover:bg-surface-container-highest transition-transform duration-150 scale-95">
+<span class="material-symbols-outlined">person</span>
+<span class="font-body text-body-sm">Profile</span>
+</div>
+</footer>
+<!-- Mobile FAB -->
+<button class="md:hidden fixed bottom-24 right-4 w-14 h-14 bg-secondary text-on-secondary rounded-full flex items-center justify-center shadow-lg active:scale-90 transition-transform z-40" onclick="toggleModal('reminder-modal')">
+<span class="material-symbols-outlined">add</span>
+</button>
+<!-- Create Reminder Modal (Drawer style on mobile) -->
+<div class="fixed inset-0 z-[60] hidden" id="reminder-modal">
+<div class="absolute inset-0 bg-primary/40 backdrop-blur-sm transition-opacity" onclick="toggleModal('reminder-modal')"></div>
+<div class="absolute bottom-0 md:bottom-auto md:top-1/2 md:left-1/2 md:-translate-x-1/2 md:-translate-y-1/2 w-full md:max-w-md bg-surface border border-outline-variant rounded-t-xl md:rounded-xl shadow-2xl transition-transform transform translate-y-0 p-6">
+<div class="flex justify-between items-center mb-6">
+<h2 class="font-headline text-headline-sm font-bold">New Reminder</h2>
+<button class="p-2 rounded-full hover:bg-surface-container-high" onclick="toggleModal('reminder-modal')">
+<span class="material-symbols-outlined">close</span>
+</button>
+</div>
+<form class="space-y-6">
+<!-- Reminder Name -->
+<div>
+<label class="block font-headline font-semibold text-body-sm mb-2 text-on-surface-variant">REMINDER TITLE</label>
+<input class="w-full bg-surface border border-outline-variant rounded-lg px-4 py-3 focus:border-secondary focus:ring-2 focus:ring-secondary/20 transition-all outline-none text-body-md" placeholder="e.g., Rent Payment" type="text">
+</div>
+<!-- Target -->
+<div>
+<label class="block font-headline font-semibold text-body-sm mb-2 text-on-surface-variant">TARGET RECIPIENTS</label>
+<div class="grid grid-cols-2 gap-3">
+<button class="target-chip flex items-center justify-center gap-2 border border-outline-variant rounded-lg p-3 hover:bg-surface-container transition-colors bg-secondary-container/10 border-secondary text-secondary" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">group</span>
+<span class="text-body-md font-medium">All Tenants</span>
+</button>
+<button class="target-chip flex items-center justify-center gap-2 border border-outline-variant rounded-lg p-3 hover:bg-surface-container transition-colors" onclick="selectChip(this)" type="button">
+<span class="material-symbols-outlined text-[18px]">meeting_room</span>
+<span class="text-body-md font-medium">Specific Room</span>
+</button>
+</div>
+</div>
+<!-- Frequency -->
+<div>
+<label class="block font-headline font-semibold text-body-sm mb-2 text-on-surface-variant">FREQUENCY</label>
+<div class="flex flex-wrap gap-2">
+<button class="px-4 py-2 rounded-full border border-outline-variant text-body-sm font-medium hover:bg-surface-container transition-colors" type="button">Daily</button>
+<button class="px-4 py-2 rounded-full border border-secondary bg-secondary/10 text-secondary text-body-sm font-semibold" type="button">Monthly</button>
+<button class="px-4 py-2 rounded-full border border-outline-variant text-body-sm font-medium hover:bg-surface-container transition-colors" type="button">Custom</button>
+</div>
+</div>
+<!-- Schedule Details -->
+<div class="bg-surface-container-low p-4 rounded-lg flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant">calendar_month</span>
+<div>
+<p class="text-body-md font-medium">Monthly on the 1st</p>
+<p class="text-body-sm text-on-surface-variant">First notification at 09:00 AM</p>
+</div>
+<button class="ml-auto text-secondary text-body-sm font-bold" type="button">EDIT</button>
+</div>
+<button class="w-full bg-secondary text-on-secondary font-bold py-4 rounded-xl hover:bg-secondary-container transition-all shadow-md mt-4" type="button">
+                    Set Reminder
+                </button>
+</form>
+</div>
+</div>
+<script>
+        function toggleModal(id) {
+            const modal = document.getElementById(id);
+            modal.classList.toggle('hidden');
+            if (!modal.classList.contains('hidden')) {
+                // Animation for modal
+                const content = modal.querySelector('.transform');
+                content.classList.remove('translate-y-full');
+            }
+        }
+
+        function selectChip(btn) {
+            // Simple toggle logic for demo
+            const siblings = btn.parentNode.querySelectorAll('.target-chip');
+            siblings.forEach(s => {
+                s.classList.remove('bg-secondary-container/10', 'border-secondary', 'text-secondary');
+            });
+            btn.classList.add('bg-secondary-container/10', 'border-secondary', 'text-secondary');
+        }
+
+        // Horizontal scroll prevention logic for web
+        document.querySelector('.no-scrollbar').addEventListener('wheel', (evt) => {
+            evt.preventDefault();
+            document.querySelector('.no-scrollbar').scrollLeft += evt.deltaY;
+        });
+    </script>
+
+
+</body></html>

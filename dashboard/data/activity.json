@@ -1,0 +1,9 @@
+[
+  {"date":"2026-09-05","type":"added","message":"Imported actionable task records into stable NS-T### IDs from the former TODO list."},
+  {"date":"2026-09-05","type":"added","message":"Imported completed and in-progress status items from PROJECT-STATUS.md."},
+  {"date":"2026-09-05","type":"completed","message":"Consolidated status overview, task board, journal, and tracker instructions under status/."},
+  {"date":"2026-09-05","type":"dashboard","message":"Created the internal JSON-backed project dashboard; no automatic tool-call capture is enabled."},
+  {"date":"2026-09-05","type":"completed","taskId":"NS-T016","message":"Completed architecture documentation and the pre-build architecture gate."},
+  {"date":"2026-09-05","type":"blocked","taskId":"NS-T017","message":"Put future implementation planning and stack decisions on hold at the user's request."},
+  {"date":"2026-09-05","type":"completed","taskId":"NS-T018","message":"Added a live phone/tablet device preview at /preview for reviewing the responsive web design."}
+]
