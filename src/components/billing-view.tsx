@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { AppHeader } from "@/components/app-header";
+import { AppBottomNav } from "@/components/app-bottom-nav";
 
 const pendingInvoices = [
   { tenant: "Riya Shah", room: "103-B", amount: "₹4,000", due: "Overdue · 3 days", status: "Overdue" },
@@ -27,11 +29,7 @@ function InvoiceStatusChip({ status }: { status: string }) {
 export function BillingView() {
   return (
     <div className="rooms-shell">
-      <header className="rooms-topbar">
-        <Link className="rooms-brand" href="/" aria-label="Back to dashboard"><span className="brand-mark">N</span><span>NexStay</span></Link>
-        <div className="rooms-property"><span className="eyebrow">PROPERTY</span><strong>Maple House</strong><span>Indiranagar, Bengaluru</span></div>
-        <div className="rooms-top-actions"><button className="icon-button" aria-label="View notifications">♧</button><Link className="rooms-back" href="/">Dashboard</Link></div>
-      </header>
+      <AppHeader activeNav="Billing" />
       <main className="rooms-content">
         <header className="rooms-heading"><div><p className="eyebrow">MAPLE HOUSE / FINANCE</p><h1>Billing &amp; finance</h1><p className="lede">Track revenue, pending rent, and property expenses in one place.</p></div></header>
 
@@ -54,7 +52,7 @@ export function BillingView() {
           <div className="rooms-table-wrap"><table className="rooms-table"><thead><tr><th>Date</th><th>Category</th><th>Description</th><th>Amount</th></tr></thead><tbody>{recentExpenses.map((expense) => <tr key={expense.description}><td data-label="Date">{expense.date}</td><td data-label="Category">{expense.category}</td><td data-label="Description">{expense.description}</td><td data-label="Amount">{expense.amount}</td></tr>)}</tbody></table></div>
         </section>
       </main>
-      <nav className="bottom-nav rooms-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link href="/rooms">▦<span>Rooms</span></Link><Link href="/tenants">♙<span>Tenants</span></Link><Link className="active" href="/billing">₹<span>Finance</span></Link></nav>
+      <AppBottomNav activeTab="finance" />
     </div>
   );
 }

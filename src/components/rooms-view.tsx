@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AppHeader } from "@/components/app-header";
+import { AppBottomNav } from "@/components/app-bottom-nav";
 
 type RoomStatus = "Occupied" | "Vacant" | "Maintenance";
 type Room = {
@@ -52,11 +54,7 @@ export function RoomsView() {
 
   return (
     <div className="rooms-shell">
-      <header className="rooms-topbar">
-        <Link className="rooms-brand" href="/" aria-label="Back to dashboard"><span className="brand-mark">N</span><span>NexStay</span></Link>
-        <div className="rooms-property"><span className="eyebrow">PROPERTY</span><strong>Maple House</strong><span>Indiranagar, Bengaluru</span></div>
-        <div className="rooms-top-actions"><button className="icon-button" aria-label="View notifications">♧</button><Link className="rooms-back" href="/">Dashboard</Link></div>
-      </header>
+      <AppHeader activeNav="Rooms & beds" />
       <main className="rooms-content">
         <header className="rooms-heading"><div><p className="eyebrow">MAPLE HOUSE / INVENTORY</p><h1>Rooms &amp; beds</h1><p className="lede">A clear view of every room, bed, and upcoming move-in.</p></div><button className="primary-button" type="button" onClick={() => setFilter("Vacant")}>+ Find a vacant bed</button></header>
 
@@ -82,7 +80,7 @@ export function RoomsView() {
           {filteredRooms.length > 0 ? <div className="rooms-table-wrap"><table className="rooms-table"><thead><tr><th>Room no.</th><th>Type</th><th>Status</th><th>Occupancy</th><th className="action-column">Action</th></tr></thead><tbody>{filteredRooms.map((room) => <tr key={room.number}><td data-label="Room no."><strong className="mono">{room.number}</strong><small>Floor {room.floor}</small></td><td data-label="Type">{room.type}</td><td data-label="Status"><StatusChip status={room.status} /></td><td data-label="Occupancy"><strong>{room.occupied}/{room.capacity}</strong><span className="occupancy-bar"><i style={{ width: `${room.occupied / room.capacity * 100}%` }} /></span></td><td className="action-column"><button type="button" className="details-button" onClick={() => setSelectedRoom(room)}>View details <span aria-hidden="true">→</span></button></td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No rooms match those filters.</strong><p>Try another status, floor, or search term.</p><button type="button" onClick={() => { setFilter("All"); setFloor("All floors"); setQuery(""); }}>Clear filters</button></div>}
         </section>
       </main>
-      <nav className="bottom-nav rooms-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link className="active" href="/rooms">▦<span>Rooms</span></Link><Link href="/tenants">♙<span>Tenants</span></Link><Link href="/billing">₹<span>Finance</span></Link></nav>
+      <AppBottomNav activeTab="rooms" />
       {selectedRoom && <div className="room-modal-backdrop" role="presentation" onClick={() => setSelectedRoom(null)}><section className="room-modal" role="dialog" aria-modal="true" aria-labelledby="room-detail-title" onClick={(event) => event.stopPropagation()}><div className="modal-heading"><div><p className="eyebrow">ROOM DETAIL</p><h2 id="room-detail-title">Room {selectedRoom.number}</h2></div><button type="button" className="modal-close" aria-label="Close room details" onClick={() => setSelectedRoom(null)}>×</button></div><div className="modal-meta"><StatusChip status={selectedRoom.status} /><span>Floor {selectedRoom.floor} · {selectedRoom.type}</span></div><div className="modal-stats"><div><span>Occupancy</span><strong>{selectedRoom.occupied}/{selectedRoom.capacity}</strong></div><div><span>Monthly rent</span><strong>{selectedRoom.rent}</strong></div></div><h3>Bed assignments</h3><ul className="bed-assignment-list">{selectedRoom.beds.map((bed, index) => <li key={`${bed}-${index}`}><span className="mono">Bed {String.fromCharCode(65 + index)}</span><span>{bed}</span></li>)}</ul><button type="button" className="primary-button modal-action" onClick={() => setSelectedRoom(null)}>Done</button></section></div>}
     </div>
   );

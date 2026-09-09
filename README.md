@@ -90,6 +90,7 @@ Current status is best described as:
 - Requirements: `docs/srs/owner-erp-srs.md`
 - Design artifacts: `Design Files/stitch_pg_management_hub/`
 - Task tracker: `status/TASKS.md`
+- Application & preview links: [`LINKS.md`](LINKS.md)
 - Internal project dashboard: [`dashboard/`](dashboard/)
 
 ### Responsive device preview

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AppHeader } from "@/components/app-header";
+import { AppBottomNav } from "@/components/app-bottom-nav";
 
 type ComplaintStatus = "Open" | "In Progress" | "Resolved";
 type Priority = "High" | "Medium" | "Low";
@@ -45,11 +47,7 @@ export function ComplaintsView() {
 
   return (
     <div className="rooms-shell">
-      <header className="rooms-topbar">
-        <Link className="rooms-brand" href="/" aria-label="Back to dashboard"><span className="brand-mark">N</span><span>NexStay</span></Link>
-        <div className="rooms-property"><span className="eyebrow">PROPERTY</span><strong>Maple House</strong><span>Indiranagar, Bengaluru</span></div>
-        <div className="rooms-top-actions"><button className="icon-button" aria-label="View notifications">♧</button><Link className="rooms-back" href="/tenants">Tenants</Link></div>
-      </header>
+      <AppHeader activeNav="Complaints" />
       <main className="rooms-content">
         <header className="rooms-heading"><div><p className="eyebrow">MAPLE HOUSE / TENANTS</p><h1>Complaints</h1><p className="lede">Track and resolve every tenant-reported issue.</p></div></header>
 
@@ -73,7 +71,7 @@ export function ComplaintsView() {
           {filteredComplaints.length > 0 ? <div className="rooms-table-wrap"><table className="rooms-table"><thead><tr><th>Complaint</th><th>Tenant / room</th><th>Priority</th><th>Status</th><th>Raised</th></tr></thead><tbody>{filteredComplaints.map((complaint) => <tr key={complaint.title}><td data-label="Complaint"><strong>{complaint.title}</strong></td><td data-label="Tenant / room">{complaint.tenant} <small className="mono">· {complaint.room}</small></td><td data-label="Priority"><PriorityChip priority={complaint.priority} /></td><td data-label="Status"><StatusChip status={complaint.status} /></td><td data-label="Raised">{complaint.raised}</td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No complaints match this filter.</strong><p>Try another status.</p><button type="button" onClick={() => setFilter("All")}>Clear filter</button></div>}
         </section>
       </main>
-      <nav className="bottom-nav tenants-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link href="/rooms">▦<span>Rooms</span></Link><Link className="active" href="/tenants">♙<span>Tenants</span></Link><Link href="/billing">₹<span>Finance</span></Link></nav>
+      <AppBottomNav activeTab="tenants" />
     </div>
   );
 }

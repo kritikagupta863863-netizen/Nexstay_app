@@ -1,4 +1,8 @@
 import Link from "next/link";
+import { AppHeader } from "@/components/app-header";
+import { AppBottomNav } from "@/components/app-bottom-nav";
+import { RevenueChart } from "@/components/revenue-chart";
+import { RoomOccupancyChart } from "@/components/room-occupancy-chart";
 
 const navigation = [
   { label: "Overview", icon: "⌂", href: "/", active: true },
@@ -38,21 +42,21 @@ function StatusChip({ status }: { status: string }) {
 
 export function DashboardShell() {
   return (
-    <div className="app-shell">
-      <aside className="sidebar" aria-label="Primary navigation">
-        <div className="brand"><span className="brand-mark">N</span><span>NexStay</span></div>
-        <div className="property-switcher"><span className="eyebrow">PROPERTY</span><strong>Maple House</strong><span className="property-location">Indiranagar, Bengaluru</span></div>
-        <nav>
-          {navigation.map((item) => <Link className={item.active ? "nav-item active" : "nav-item"} href={item.href} key={item.label}><span aria-hidden="true">{item.icon}</span>{item.label}</Link>)}
-        </nav>
-        <div className="sidebar-footer"><a className="nav-item" href="#"><span aria-hidden="true">⚙</span>Settings</a><div className="owner-card"><span className="avatar">AK</span><span><strong>Arjun Kumar</strong><small>Owner account</small></span></div></div>
-      </aside>
+    <div className="app-wrapper">
+      <AppHeader activeNav="Overview" />
+      <div className="app-shell">
+        <aside className="sidebar" aria-label="Primary navigation">
+          <nav>
+            {navigation.map((item) => <Link className={item.active ? "nav-item active" : "nav-item"} href={item.href} key={item.label}><span aria-hidden="true">{item.icon}</span>{item.label}</Link>)}
+          </nav>
+          <div className="sidebar-footer"><a className="nav-item" href="#"><span aria-hidden="true">⚙</span>Settings</a><div className="owner-card"><span className="avatar">AK</span><span><strong>Arjun Kumar</strong><small>Super Admin</small></span></div></div>
+        </aside>
 
-      <main className="main-content">
-        <header className="page-header">
-          <div><p className="eyebrow">SATURDAY, 5 SEPTEMBER 2026</p><h1>Good morning, Arjun</h1><p className="lede">Here&apos;s what needs your attention today.</p></div>
-          <div className="header-actions"><button className="icon-button" aria-label="View notifications">♧<span className="notification-dot" /></button><button className="primary-button">+ Add tenant</button></div>
-        </header>
+        <main className="main-content">
+          <header className="page-header">
+            <div><p className="eyebrow">SATURDAY, 5 SEPTEMBER 2026</p><h1>Good morning, Arjun</h1><p className="lede">Here&apos;s what needs your attention today.</p></div>
+            <div className="header-actions"><button className="primary-button">Collect Rent</button></div>
+          </header>
 
         <section className="notice-banner" aria-label="Implementation status"><span aria-hidden="true">i</span><p><strong>Documentation-first preview.</strong> Live data, authentication, and database workflows will be connected in the next slice.</p></section>
 
@@ -60,11 +64,13 @@ export function DashboardShell() {
           <Link className="metric-card metric-card-link" href="/rooms"><span className="metric-label">Occupancy</span><strong>82<span className="metric-unit">%</span></strong><span className="metric-trend positive">↑ 4.2% <em>vs last month</em></span></Link>
           <Link className="metric-card metric-card-link" href="/billing"><span className="metric-label">Monthly revenue</span><strong>₹1,84,500</strong><span className="metric-trend positive">↑ 8.6% <em>vs last month</em></span></Link>
           <Link className="metric-card metric-card-link" href="/billing#pending-invoices"><span className="metric-label">Pending rent</span><strong>₹24,000</strong><span className="metric-trend warning">6 invoices <em>need attention</em></span></Link>
-          <Link className="metric-card metric-card-link" href="/tenants/complaints"><span className="metric-label">Open complaints</span><strong>4</strong><span className="metric-trend warning">2 high priority</span></Link>
+          <Link className="metric-card metric-card-link" href="/billing#recent-expenses"><span className="metric-label">Monthly expense</span><strong>₹30,250</strong><span className="metric-trend warning">6 recorded <em>this month</em></span></Link>
         </section>
 
+        <RevenueChart />
+
         <div className="dashboard-grid">
-          <section className="panel bed-panel"><div className="section-heading"><div><p className="eyebrow">LIVE INVENTORY</p><h2>Rooms &amp; beds</h2></div><Link href="/rooms">View all <span aria-hidden="true">→</span></Link></div><div className="bed-summary"><span><i className="dot dot-occupied" /> 18 occupied</span><span><i className="dot dot-vacant" /> 4 vacant</span></div><div className="bed-grid">{beds.map(([room, status, occupant]) => <article className="bed-card" key={room}><div className="bed-card-top"><span className="mono">{room}</span><StatusChip status={status} /></div><strong>{occupant}</strong>{status === "Maintenance" && <small>Action required</small>}</article>)}</div></section>
+          <section className="panel bed-panel"><div className="section-heading"><div><p className="eyebrow">LIVE INVENTORY</p><h2>Rooms &amp; beds</h2></div><Link href="/rooms">View all <span aria-hidden="true">→</span></Link></div><div className="bed-summary"><span><i className="dot dot-occupied" /> 18 occupied</span><span><i className="dot dot-vacant" /> 4 vacant</span><span><i className="dot dot-maintenance" /> 2 maintenance</span></div><div className="bed-grid">{beds.map(([room, status, occupant]) => <article className="bed-card" key={room}><div className="bed-card-top"><span className="mono">{room}</span><StatusChip status={status} /></div><strong>{occupant}</strong>{status === "Maintenance" && <small>Action required</small>}</article>)}</div><RoomOccupancyChart /></section>
           <section className="panel complaints-panel" aria-label="Open complaints"><div className="section-heading"><div><p className="eyebrow">TENANT ISSUES</p><h2>Open complaints</h2></div><span className="count-pill">{totalOpenComplaints}</span></div><ul className="complaint-list">{openComplaints.map((complaint) => <li key={complaint.title}><span className={`complaint-priority ${complaint.priority.toLowerCase()}`}>{complaint.priority}</span><div><strong>{complaint.title}</strong><p>{complaint.meta} · {complaint.raised}</p></div></li>)}</ul><Link className="see-all-link" href="/tenants/complaints">See all <span aria-hidden="true">→</span></Link></section>
         </div>
 
@@ -73,7 +79,8 @@ export function DashboardShell() {
         <section className="panel revenue-panel"><div className="section-heading"><div><p className="eyebrow">FINANCIAL OVERVIEW</p><h2>Revenue &amp; expenses</h2></div><span className="select-like">Last 6 months⌄</span></div><div className="chart" aria-label="Revenue and expenses for the last six months"><div className="chart-legend"><span><i className="legend-revenue" /> Revenue</span><span><i className="legend-expenses" /> Expenses</span></div><div className="bars">{[["Apr", 52, 31], ["May", 62, 38], ["Jun", 58, 34], ["Jul", 76, 42], ["Aug", 82, 48], ["Sep", 92, 44]].map(([month, revenue, expenses]) => <div className="bar-group" key={month}><div className="bar-stack"><span className="bar revenue" style={{ height: `${revenue}%` }} /><span className="bar expenses" style={{ height: `${expenses}%` }} /></div><small>{month}</small></div>)}</div></div></section>
         <p className="footer-note">Online-only owner workspace · English · INR · Asia/Kolkata</p>
       </main>
-      <nav className="bottom-nav" aria-label="Mobile navigation">{navigation.slice(0, 4).map((item) => <Link className={item.label === "Overview" ? "active" : ""} href={item.href} key={item.label}><span aria-hidden="true">{item.icon}</span>{item.label}</Link>)}</nav>
+      <AppBottomNav activeTab="home" />
+      </div>
     </div>
   );
 }

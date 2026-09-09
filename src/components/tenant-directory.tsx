@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import { AppHeader } from "@/components/app-header";
+import { AppBottomNav } from "@/components/app-bottom-nav";
 
 type Tenant = {
   name: string;
@@ -44,11 +46,7 @@ export function TenantDirectory() {
 
   return (
     <div className="tenants-shell">
-      <header className="rooms-topbar">
-        <Link className="rooms-brand" href="/" aria-label="Back to dashboard"><span className="brand-mark">N</span><span>NexStay</span></Link>
-        <div className="rooms-property"><span className="eyebrow">PROPERTY</span><strong>Maple House</strong><span>Indiranagar, Bengaluru</span></div>
-        <div className="rooms-top-actions"><button className="icon-button" aria-label="View notifications">♧</button><Link className="rooms-back" href="/">Dashboard</Link></div>
-      </header>
+      <AppHeader activeNav="Tenants" />
       <main className="tenants-content">
         <header className="tenants-heading"><div><p className="eyebrow">MAPLE HOUSE / PEOPLE</p><h1>Tenant directory</h1><p className="lede">Keep track of who calls your property home.</p></div><button type="button" className="primary-button" onClick={() => setStatus("Active")}>+ Add tenant</button></header>
         <section className="notice-banner tenant-preview-note" aria-label="Preview data notice"><span aria-hidden="true">i</span><p><strong>Preview data.</strong> This owner workspace is ready for the directory workflow; live tenant records and authentication will connect in a later slice.</p></section>
@@ -68,7 +66,7 @@ export function TenantDirectory() {
           {tenants.length ? <div className="tenant-table-wrap"><table className="tenant-table"><thead><tr><th>Tenant</th><th>Contact</th><th>Room</th><th>Sharing</th><th>Joined on</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{tenants.map((tenant) => <tr key={`${tenant.name}-${tenant.room}`}><td data-label="Tenant"><button className="tenant-name" type="button" onClick={() => setSelectedTenant(tenant)}><span className="tenant-avatar">{tenant.initials}</span><strong>{tenant.name}</strong></button></td><td data-label="Contact"><span className="tenant-phone">{tenant.phone}</span></td><td data-label="Room"><strong className="mono">{tenant.room}</strong><small>Floor {tenant.floor}</small></td><td data-label="Sharing"><span className={`sharing-chip ${tenant.type.toLowerCase()}`}>{tenant.type}</span></td><td data-label="Joined on"><span className="tenant-date">{tenant.joined}</span></td><td className="tenant-action"><button type="button" className="details-button" onClick={() => setSelectedTenant(tenant)}>View details <span aria-hidden="true">→</span></button></td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No tenants match these filters.</strong><p>Try another status, floor, room type, or search term.</p><button type="button" onClick={() => { setQuery(""); setType("All Types"); setFloor("All Floors"); }}>Clear filters</button></div>}
         </section>
       </main>
-      <nav className="bottom-nav tenants-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link href="/rooms">▦<span>Rooms</span></Link><Link className="active" href="/tenants">♙<span>Tenants</span></Link><Link href="/billing">₹<span>Finance</span></Link></nav>
+      <AppBottomNav activeTab="tenants" />
       {selectedTenant && <div className="room-modal-backdrop" role="presentation" onClick={() => setSelectedTenant(null)}><section className="room-modal" role="dialog" aria-modal="true" aria-labelledby="tenant-detail-title" onClick={(event) => event.stopPropagation()}><div className="modal-heading"><div><p className="eyebrow">TENANT DETAIL</p><h2 id="tenant-detail-title">{selectedTenant.name}</h2></div><button type="button" className="modal-close" aria-label="Close tenant details" onClick={() => setSelectedTenant(null)}>×</button></div><div className="modal-meta"><span className="sharing-chip">{selectedTenant.status}</span><span>{selectedTenant.room} · Floor {selectedTenant.floor} · {selectedTenant.type}</span></div><div className="modal-stats"><div><span>Phone</span><strong>{selectedTenant.phone}</strong></div><div><span>Joined on</span><strong>{selectedTenant.joined}</strong></div></div><p className="tenant-detail-copy">Owner-facing preview profile. Editing, KYC, rent, and stay history will be added with the connected tenant workflow.</p><button type="button" className="primary-button modal-action" onClick={() => setSelectedTenant(null)}>Done</button></section></div>}
     </div>
   );
