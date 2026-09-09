@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-type RoomStatus = "Occupied" | "Vacant" | "Reserved" | "Maintenance";
+type RoomStatus = "Occupied" | "Vacant" | "Maintenance";
 type Room = {
   number: string;
   floor: number;
@@ -19,12 +19,12 @@ const rooms: Room[] = [
   { number: "101", floor: 1, type: "Single Premium", status: "Occupied", occupied: 1, capacity: 1, beds: ["Aarav Mehta"], rent: "₹8,500" },
   { number: "102", floor: 1, type: "Double Sharing", status: "Vacant", occupied: 0, capacity: 2, beds: ["Ready to assign", "Ready to assign"], rent: "₹6,500" },
   { number: "103", floor: 1, type: "Double Sharing", status: "Occupied", occupied: 2, capacity: 2, beds: ["Kabir Singh", "Riya Shah"], rent: "₹6,500" },
-  { number: "201", floor: 2, type: "Triple Sharing", status: "Reserved", occupied: 2, capacity: 3, beds: ["Dev Patel", "Move-in Friday", "Ready to assign"], rent: "₹5,200" },
+  { number: "201", floor: 2, type: "Triple Sharing", status: "Occupied", occupied: 2, capacity: 3, beds: ["Dev Patel", "Move-in Friday", "Ready to assign"], rent: "₹5,200" },
   { number: "205", floor: 2, type: "Triple Sharing", status: "Maintenance", occupied: 0, capacity: 3, beds: ["Fan replacement", "Unavailable", "Unavailable"], rent: "₹5,200" },
   { number: "301", floor: 3, type: "Double Sharing", status: "Vacant", occupied: 0, capacity: 2, beds: ["Ready to assign", "Ready to assign"], rent: "₹6,500" },
 ];
 
-const statusFilters = ["All", "Occupied", "Vacant", "Reserved", "Maintenance"] as const;
+const statusFilters = ["All", "Occupied", "Vacant", "Maintenance"] as const;
 
 function StatusChip({ status }: { status: RoomStatus }) {
   return <span className={`status status-${status.toLowerCase()}`}><i />{status}</span>;
@@ -82,7 +82,7 @@ export function RoomsView() {
           {filteredRooms.length > 0 ? <div className="rooms-table-wrap"><table className="rooms-table"><thead><tr><th>Room no.</th><th>Type</th><th>Status</th><th>Occupancy</th><th className="action-column">Action</th></tr></thead><tbody>{filteredRooms.map((room) => <tr key={room.number}><td data-label="Room no."><strong className="mono">{room.number}</strong><small>Floor {room.floor}</small></td><td data-label="Type">{room.type}</td><td data-label="Status"><StatusChip status={room.status} /></td><td data-label="Occupancy"><strong>{room.occupied}/{room.capacity}</strong><span className="occupancy-bar"><i style={{ width: `${room.occupied / room.capacity * 100}%` }} /></span></td><td className="action-column"><button type="button" className="details-button" onClick={() => setSelectedRoom(room)}>View details <span aria-hidden="true">→</span></button></td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No rooms match those filters.</strong><p>Try another status, floor, or search term.</p><button type="button" onClick={() => { setFilter("All"); setFloor("All floors"); setQuery(""); }}>Clear filters</button></div>}
         </section>
       </main>
-      <nav className="bottom-nav rooms-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link className="active" href="/rooms">▦<span>Rooms</span></Link><Link href="/tenants">♙<span>Tenants</span></Link><Link href="/">₹<span>Finance</span></Link></nav>
+      <nav className="bottom-nav rooms-bottom-nav" aria-label="Mobile navigation"><Link href="/">⌂<span>Dashboard</span></Link><Link className="active" href="/rooms">▦<span>Rooms</span></Link><Link href="/tenants">♙<span>Tenants</span></Link><Link href="/billing">₹<span>Finance</span></Link></nav>
       {selectedRoom && <div className="room-modal-backdrop" role="presentation" onClick={() => setSelectedRoom(null)}><section className="room-modal" role="dialog" aria-modal="true" aria-labelledby="room-detail-title" onClick={(event) => event.stopPropagation()}><div className="modal-heading"><div><p className="eyebrow">ROOM DETAIL</p><h2 id="room-detail-title">Room {selectedRoom.number}</h2></div><button type="button" className="modal-close" aria-label="Close room details" onClick={() => setSelectedRoom(null)}>×</button></div><div className="modal-meta"><StatusChip status={selectedRoom.status} /><span>Floor {selectedRoom.floor} · {selectedRoom.type}</span></div><div className="modal-stats"><div><span>Occupancy</span><strong>{selectedRoom.occupied}/{selectedRoom.capacity}</strong></div><div><span>Monthly rent</span><strong>{selectedRoom.rent}</strong></div></div><h3>Bed assignments</h3><ul className="bed-assignment-list">{selectedRoom.beds.map((bed, index) => <li key={`${bed}-${index}`}><span className="mono">Bed {String.fromCharCode(65 + index)}</span><span>{bed}</span></li>)}</ul><button type="button" className="primary-button modal-action" onClick={() => setSelectedRoom(null)}>Done</button></section></div>}
     </div>
   );
