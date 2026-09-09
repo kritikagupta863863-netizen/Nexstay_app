@@ -3,6 +3,9 @@ import { AppHeader } from "@/components/app-header";
 import { AppBottomNav } from "@/components/app-bottom-nav";
 import { RevenueChart } from "@/components/revenue-chart";
 import { RoomOccupancyChart } from "@/components/room-occupancy-chart";
+import { ComplaintsPanel } from "@/components/complaints-panel";
+import { RecentExpensesPanel } from "@/components/recent-expenses-panel";
+import { NexstayAIBanner } from "@/components/nexstay-ai-banner";
 
 const navigation = [
   { label: "Overview", icon: "⌂", href: "/", active: true },
@@ -21,20 +24,7 @@ const beds = [
   ["103-B", "Maintenance", "Fan replacement"]
 ];
 
-const recentExpenses = [
-  { label: "Electricity bill", meta: "Maple House · 2 Sep 2026", amount: "₹6,200" },
-  { label: "Plumbing repair", meta: "Room 204 · 30 Aug 2026", amount: "₹1,450" },
-  { label: "Staff salary", meta: "Housekeeping · 28 Aug 2026", amount: "₹18,000" }
-];
 
-// Only the top 3 open complaints are shown on the dashboard; the total
-// open count matches the "Open complaints" metric card above.
-const totalOpenComplaints = 4;
-const openComplaints = [
-  { title: "Leaking tap", meta: "Room 204 · Riya Shah", priority: "High", raised: "2 days ago" },
-  { title: "AC not cooling", meta: "Room 301 · Michael Kim", priority: "High", raised: "1 day ago" },
-  { title: "WiFi not working", meta: "Room 102 · Kabir Singh", priority: "Medium", raised: "3 days ago" }
-];
 
 function StatusChip({ status }: { status: string }) {
   return <span className={`status status-${status.toLowerCase()}`}>{status}</span>;
@@ -70,13 +60,13 @@ export function DashboardShell() {
         <RevenueChart />
 
         <div className="dashboard-grid">
-          <section className="panel bed-panel"><div className="section-heading"><div><p className="eyebrow">LIVE INVENTORY</p><h2>Rooms &amp; beds</h2></div><Link href="/rooms">View all <span aria-hidden="true">→</span></Link></div><div className="bed-summary"><span><i className="dot dot-occupied" /> 18 occupied</span><span><i className="dot dot-vacant" /> 4 vacant</span><span><i className="dot dot-maintenance" /> 2 maintenance</span></div><div className="bed-grid">{beds.map(([room, status, occupant]) => <article className="bed-card" key={room}><div className="bed-card-top"><span className="mono">{room}</span><StatusChip status={status} /></div><strong>{occupant}</strong>{status === "Maintenance" && <small>Action required</small>}</article>)}</div><RoomOccupancyChart /></section>
-          <section className="panel complaints-panel" aria-label="Open complaints"><div className="section-heading"><div><p className="eyebrow">TENANT ISSUES</p><h2>Open complaints</h2></div><span className="count-pill">{totalOpenComplaints}</span></div><ul className="complaint-list">{openComplaints.map((complaint) => <li key={complaint.title}><span className={`complaint-priority ${complaint.priority.toLowerCase()}`}>{complaint.priority}</span><div><strong>{complaint.title}</strong><p>{complaint.meta} · {complaint.raised}</p></div></li>)}</ul><Link className="see-all-link" href="/tenants/complaints">See all <span aria-hidden="true">→</span></Link></section>
+          <section className="panel bed-panel"><div className="section-heading"><div><p className="eyebrow">LIVE INVENTORY</p><h2>Rooms &amp; beds</h2></div><Link href="/rooms">View all <span aria-hidden="true">→</span></Link></div><RoomOccupancyChart /></section>
+          <ComplaintsPanel />
         </div>
 
-        <section className="panel expenses-panel"><div className="section-heading"><div><p className="eyebrow">SPENDING</p><h2>Recent expenses</h2></div><Link href="/billing#recent-expenses">See all <span aria-hidden="true">→</span></Link></div><ul className="expense-list">{recentExpenses.map((expense) => <li key={expense.label}><div><strong>{expense.label}</strong><p>{expense.meta}</p></div><span className="expense-amount">{expense.amount}</span></li>)}</ul></section>
+        <RecentExpensesPanel />
 
-        <section className="panel revenue-panel"><div className="section-heading"><div><p className="eyebrow">FINANCIAL OVERVIEW</p><h2>Revenue &amp; expenses</h2></div><span className="select-like">Last 6 months⌄</span></div><div className="chart" aria-label="Revenue and expenses for the last six months"><div className="chart-legend"><span><i className="legend-revenue" /> Revenue</span><span><i className="legend-expenses" /> Expenses</span></div><div className="bars">{[["Apr", 52, 31], ["May", 62, 38], ["Jun", 58, 34], ["Jul", 76, 42], ["Aug", 82, 48], ["Sep", 92, 44]].map(([month, revenue, expenses]) => <div className="bar-group" key={month}><div className="bar-stack"><span className="bar revenue" style={{ height: `${revenue}%` }} /><span className="bar expenses" style={{ height: `${expenses}%` }} /></div><small>{month}</small></div>)}</div></div></section>
+        <NexstayAIBanner />
         <p className="footer-note">Online-only owner workspace · English · INR · Asia/Kolkata</p>
       </main>
       <AppBottomNav activeTab="home" />

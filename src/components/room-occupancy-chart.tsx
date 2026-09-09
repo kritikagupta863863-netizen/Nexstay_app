@@ -2,203 +2,106 @@
 
 import { useState } from "react";
 
-type RoomType = {
-  label: string;
-  shortLabel: string;
-  occupied: number;
-  vacant: number;
-  maintenance: number;
-  rent: string;
-  color: string;
-};
-
-const roomTypes: RoomType[] = [
-  {
-    label: "Single Premium",
-    shortLabel: "Single",
-    occupied: 4,
-    vacant: 1,
-    maintenance: 0,
-    rent: "₹8,500 / mo",
-    color: "#3b62d8",
-  },
-  {
-    label: "Double Sharing",
-    shortLabel: "Double",
-    occupied: 8,
-    vacant: 2,
-    maintenance: 0,
-    rent: "₹6,500 / mo",
-    color: "#0ea5e9",
-  },
-  {
-    label: "Triple Sharing",
-    shortLabel: "Triple",
-    occupied: 6,
-    vacant: 1,
-    maintenance: 2,
-    rent: "₹5,200 / mo",
-    color: "#8b5cf6",
-  },
+const data = [
+  { label: "Single", occupied: 24, available: 12, total: 36 },
+  { label: "Double", occupied: 24, available: 12, total: 36 },
+  { label: "Triple", occupied: 24, available: 12, total: 36 },
 ];
 
-type TooltipState = { type: RoomType; x: number; y: number } | null;
-
 export function RoomOccupancyChart() {
-  const [tooltip, setTooltip] = useState<TooltipState>(null);
+  const maxTotal = Math.max(...data.map((d) => d.total));
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   return (
-    <div className="room-occ-chart-wrap" aria-label="Room occupancy by type">
-      {/* Legend */}
-      <div className="room-occ-legend">
-        <span className="room-occ-legend-item">
-          <span className="room-occ-dot occupied" />
-          Occupied
-        </span>
-        <span className="room-occ-legend-item">
-          <span className="room-occ-dot vacant" />
-          Vacant
-        </span>
-        <span className="room-occ-legend-item">
-          <span className="room-occ-dot maintenance" />
-          Maintenance
-        </span>
+    <div style={{ marginTop: '20px', display: 'flex', flexDirection: 'column', alignItems: 'center', width: '100%', position: 'relative' }}>
+      
+      {/* Background gridlines for premium feel */}
+      <div style={{ position: 'absolute', top: '30px', left: '5%', right: '5%', height: '220px', zIndex: 0, display: 'flex', flexDirection: 'column', justifyContent: 'space-between', pointerEvents: 'none', opacity: 0.5 }}>
+         <div style={{ borderBottom: '1px dashed #cbd5e1', width: '100%' }}></div>
+         <div style={{ borderBottom: '1px dashed #cbd5e1', width: '100%' }}></div>
+         <div style={{ borderBottom: '1px dashed #cbd5e1', width: '100%' }}></div>
+         <div style={{ borderBottom: '1px dashed #cbd5e1', width: '100%' }}></div>
       </div>
 
-      {/* Bar chart area */}
-      <div className="room-occ-bars-outer">
-        {roomTypes.map((rt) => {
-          const total = rt.occupied + rt.vacant + rt.maintenance;
-          const occPct = (rt.occupied / total) * 100;
-          const vacPct = (rt.vacant / total) * 100;
-          const mntPct = (rt.maintenance / total) * 100;
-          const occRate = Math.round((rt.occupied / total) * 100);
+      <div style={{ display: 'flex', width: '100%', justifyContent: 'space-around', alignItems: 'flex-end', height: '220px', marginBottom: '28px', zIndex: 1 }}>
+        {data.map((item, index) => {
+          const heightPct = (item.total / maxTotal) * 100;
+          const occPct = (item.occupied / item.total) * 100;
+          const availPct = (item.available / item.total) * 100;
+          const isHovered = hoveredIndex === index;
 
           return (
-            <div
-              key={rt.label}
-              className="room-occ-group"
-              onMouseEnter={(e) => {
-                const rect = e.currentTarget.getBoundingClientRect();
-                setTooltip({ type: rt, x: rect.left + rect.width / 2, y: rect.top });
-              }}
-              onMouseLeave={() => setTooltip(null)}
-              tabIndex={0}
-              aria-label={`${rt.label}: ${rt.occupied} occupied, ${rt.vacant} vacant${rt.maintenance ? `, ${rt.maintenance} in maintenance` : ""}`}
+            <div 
+              key={item.label} 
+              style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '28%', maxWidth: '90px', height: '100%', cursor: 'pointer' }}
+              onMouseEnter={() => setHoveredIndex(index)}
+              onMouseLeave={() => setHoveredIndex(null)}
             >
-              {/* Stacked bar */}
-              <div className="room-occ-bar-container">
-                <div className="room-occ-bar-track">
-                  {rt.occupied > 0 && (
-                    <div
-                      className="room-occ-bar-segment seg-occupied"
-                      style={{
-                        height: `${occPct}%`,
-                        background: rt.color,
-                      }}
-                      title={`Occupied: ${rt.occupied}`}
-                    />
-                  )}
-                  {rt.vacant > 0 && (
-                    <div
-                      className="room-occ-bar-segment seg-vacant"
-                      style={{ height: `${vacPct}%` }}
-                      title={`Vacant: ${rt.vacant}`}
-                    />
-                  )}
-                  {rt.maintenance > 0 && (
-                    <div
-                      className="room-occ-bar-segment seg-maintenance"
-                      style={{ height: `${mntPct}%` }}
-                      title={`Maintenance: ${rt.maintenance}`}
-                    />
-                  )}
+              <div 
+                style={{ 
+                  height: `${heightPct}%`, 
+                  width: '100%', 
+                  display: 'flex', 
+                  flexDirection: 'column', 
+                  borderRadius: '12px', 
+                  overflow: 'hidden',
+                  boxShadow: isHovered ? '0 12px 28px -6px rgba(37, 99, 235, 0.4)' : '0 4px 12px -2px rgba(0, 0, 0, 0.08)',
+                  transform: isHovered ? 'translateY(-6px)' : 'none',
+                  transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                  border: '1px solid rgba(255,255,255,0.8)'
+                }}
+              >
+                <div style={{ 
+                  height: `${availPct}%`, 
+                  background: 'linear-gradient(180deg, #dbeafe 0%, #bfdbfe 100%)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  color: '#1e40af', 
+                  fontWeight: 700, 
+                  fontSize: '1.05rem',
+                  textShadow: '0 1px 2px rgba(255,255,255,0.6)'
+                }}>
+                  {item.available > 0 ? item.available : ''}
                 </div>
-
-                {/* Occupancy rate pill on the bar */}
-                <div
-                  className="room-occ-rate-pill"
-                  style={{ background: rt.color }}
-                  aria-hidden="true"
-                >
-                  {occRate}%
+                <div style={{ 
+                  height: `${occPct}%`, 
+                  background: 'linear-gradient(180deg, #3b82f6 0%, #1d4ed8 100%)', 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  justifyContent: 'center', 
+                  color: '#ffffff', 
+                  fontWeight: 700, 
+                  fontSize: '1.05rem',
+                  boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.25)'
+                }}>
+                  {item.occupied > 0 ? item.occupied : ''}
                 </div>
               </div>
-
-              {/* X-axis label */}
-              <div className="room-occ-label">
-                <span
-                  className="room-occ-type-dot"
-                  style={{ background: rt.color }}
-                />
-                {rt.shortLabel}
-              </div>
-
-              {/* Count below label */}
-              <div className="room-occ-count">
-                {rt.occupied}/{total} beds
-              </div>
+              <span style={{ 
+                marginTop: '16px', 
+                fontSize: '0.95rem', 
+                color: isHovered ? '#0f172a' : '#64748b', 
+                fontWeight: isHovered ? 700 : 500,
+                fontFamily: '"Inter", sans-serif',
+                transition: 'color 0.2s ease'
+              }}>
+                {item.label}
+              </span>
             </div>
           );
         })}
       </div>
-
-      {/* Detail breakdown row */}
-      <div className="room-occ-breakdown">
-        {roomTypes.map((rt) => {
-          const total = rt.occupied + rt.vacant + rt.maintenance;
-          return (
-            <div key={rt.label} className="room-occ-breakdown-card">
-              <div
-                className="room-occ-breakdown-header"
-                style={{ borderLeftColor: rt.color }}
-              >
-                <span className="room-occ-breakdown-name">{rt.label}</span>
-                <span className="room-occ-breakdown-rent">{rt.rent}</span>
-              </div>
-              <div className="room-occ-breakdown-stats">
-                <div className="room-occ-stat">
-                  <span className="room-occ-stat-dot" style={{ background: rt.color }} />
-                  <span>Occupied</span>
-                  <strong>{rt.occupied}</strong>
-                </div>
-                <div className="room-occ-stat">
-                  <span className="room-occ-stat-dot vacant" />
-                  <span>Vacant</span>
-                  <strong>{rt.vacant}</strong>
-                </div>
-                {rt.maintenance > 0 && (
-                  <div className="room-occ-stat">
-                    <span className="room-occ-stat-dot maintenance" />
-                    <span>Maintenance</span>
-                    <strong>{rt.maintenance}</strong>
-                  </div>
-                )}
-                <div className="room-occ-stat total">
-                  <span>Total beds</span>
-                  <strong>{total}</strong>
-                </div>
-              </div>
-
-              {/* Progress bar */}
-              <div className="room-occ-mini-bar" aria-hidden="true">
-                <div
-                  className="room-occ-mini-filled"
-                  style={{
-                    width: `${(rt.occupied / total) * 100}%`,
-                    background: rt.color,
-                  }}
-                />
-              </div>
-              <div className="room-occ-mini-label">
-                <span style={{ color: rt.color }}>
-                  {Math.round((rt.occupied / total) * 100)}% occupied
-                </span>
-                <span>{total - rt.occupied} available</span>
-              </div>
-            </div>
-          );
-        })}
+      
+      <div style={{ display: 'flex', gap: '32px', fontSize: '0.9rem', color: '#475569', fontWeight: 600, fontFamily: '"Inter", sans-serif', padding: '12px 28px', backgroundColor: '#f8fafc', borderRadius: '99px', border: '1px solid #e2e8f0', boxShadow: '0 2px 8px rgba(0,0,0,0.02)' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: 'linear-gradient(135deg, #3b82f6, #1d4ed8)', boxShadow: '0 2px 6px rgba(37,99,235,0.4)' }} />
+          Occupied
+        </div>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <div style={{ width: '14px', height: '14px', borderRadius: '50%', background: 'linear-gradient(135deg, #dbeafe, #bfdbfe)', boxShadow: '0 2px 6px rgba(147,197,253,0.5)' }} />
+          Available
+        </div>
       </div>
     </div>
   );
