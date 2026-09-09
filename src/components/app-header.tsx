@@ -446,8 +446,8 @@ export function AppHeader({ onSelectProperty }: AppHeaderProps) {
                       <div className="ai-response-box">
                         <span className="ai-sparkle-inline">✦</span>
                         <p>
-                          Analyzed records for <strong>{selectedProperty.name}</strong>: 
-                          Drafted reminder ready. In accordance with the SMS/Notification policy, 
+                          Analyzed records for <strong>{selectedProperty.name}</strong>:
+                          Drafted reminder ready. In accordance with the SMS/Notification policy,
                           announcements and direct automated dispatches remain staged until provider delivery is configured.
                         </p>
                       </div>
