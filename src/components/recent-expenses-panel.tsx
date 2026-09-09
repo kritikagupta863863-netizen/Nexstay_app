@@ -37,26 +37,21 @@ export function RecentExpensesPanel() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            width: '32px',
-            height: '32px',
-            borderRadius: '50%',
-            background: '#f1f5f9',
-            color: '#3b82f6',
+            gap: '6px',
+            color: '#3b62d8',
+            fontWeight: 600,
+            fontSize: '0.85rem',
             textDecoration: 'none',
-            fontSize: '1.2rem',
-            transition: 'all 0.2s ease',
+            transition: 'color 0.2s ease',
           }}
           onMouseEnter={(e) => {
-            e.currentTarget.style.background = '#e0e7ff';
-            e.currentTarget.style.transform = 'translateX(2px)';
+            e.currentTarget.style.color = '#294db9';
           }}
           onMouseLeave={(e) => {
-            e.currentTarget.style.background = '#f1f5f9';
-            e.currentTarget.style.transform = 'none';
+            e.currentTarget.style.color = '#3b62d8';
           }}
         >
-          →
+          View all <span style={{ fontSize: '1rem', lineHeight: 1 }}>→</span>
         </Link>
       </div>
 

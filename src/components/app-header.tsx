@@ -216,7 +216,7 @@ export function AppHeader({ onSelectProperty }: AppHeaderProps) {
           </button>
 
           {/* Notifications Trigger */}
-          <div className="header-popover-wrap" ref={notifRef}>
+          <div className="header-popover-wrap desktop-only-notif-btn" ref={notifRef}>
             <button
               type="button"
               className={`header-icon-btn ${notificationsOpen ? "active" : ""}`}
@@ -331,6 +331,18 @@ export function AppHeader({ onSelectProperty }: AppHeaderProps) {
                 </div>
 
                 <div className="profile-menu-links">
+                  <a
+                    href="#notifications"
+                    className="menu-link mobile-only-menu-link"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      setProfileOpen(false);
+                      setNotificationsOpen(true);
+                    }}
+                  >
+                    <span aria-hidden="true">🔔</span>
+                    <span>Notifications (3)</span>
+                  </a>
                   <a
                     href="#settings"
                     className="menu-link"

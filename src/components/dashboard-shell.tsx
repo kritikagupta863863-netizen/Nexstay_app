@@ -39,7 +39,6 @@ export function DashboardShell() {
           <nav>
             {navigation.map((item) => <Link className={item.active ? "nav-item active" : "nav-item"} href={item.href} key={item.label}><span aria-hidden="true">{item.icon}</span>{item.label}</Link>)}
           </nav>
-          <div className="sidebar-footer"><a className="nav-item" href="#"><span aria-hidden="true">⚙</span>Settings</a><div className="owner-card"><span className="avatar">AK</span><span><strong>Arjun Kumar</strong><small>Super Admin</small></span></div></div>
         </aside>
 
         <main className="main-content">
