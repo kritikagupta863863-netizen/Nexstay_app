@@ -3,7 +3,7 @@ import Link from "next/link";
 const navigation = [
   { label: "Overview", icon: "⌂", href: "/", active: true },
   { label: "Rooms & beds", icon: "▦", href: "/rooms", active: false },
-  { label: "Tenants", icon: "♙", href: "/" },
+  { label: "Tenants", icon: "♙", href: "/tenants" },
   { label: "Billing", icon: "₹", href: "/" },
   { label: "Complaints", icon: "!", href: "/" }
 ];
