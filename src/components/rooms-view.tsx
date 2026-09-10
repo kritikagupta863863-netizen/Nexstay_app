@@ -82,25 +82,25 @@ export function RoomsView() {
           <div className="flex items-center gap-2 overflow-x-auto pb-2 md:pb-0 w-full md:w-auto" style={{ scrollbarWidth: 'none' }}>
             <button 
               onClick={() => setActiveFloor("All")}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === "All" ? "bg-primary text-on-primary" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === "All" ? "bg-primary !text-white" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
             >
               All Floors
             </button>
             <button 
               onClick={() => setActiveFloor(1)}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 1 ? "bg-primary text-on-primary" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 1 ? "bg-primary !text-white" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
             >
               Floor 1
             </button>
             <button 
               onClick={() => setActiveFloor(2)}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 2 ? "bg-primary text-on-primary" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 2 ? "bg-primary !text-white" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
             >
               Floor 2
             </button>
             <button 
               onClick={() => setActiveFloor(3)}
-              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 3 ? "bg-primary text-on-primary" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
+              className={`px-4 py-2 text-sm font-medium rounded-full transition-all active:scale-95 whitespace-nowrap ${activeFloor === 3 ? "bg-primary !text-white" : "bg-surface-container border border-outline-variant text-on-surface-variant hover:bg-surface-container-high"}`}
             >
               Floor 3
             </button>

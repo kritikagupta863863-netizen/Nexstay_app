@@ -13,7 +13,7 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
   // Dynamic styling based on status
   const statusStyles = {
     Occupied: "bg-secondary text-on-secondary",
-    Vacant: "bg-primary text-on-primary",
+    Vacant: "bg-primary !text-white",
     Maintenance: "bg-error text-on-error",
   };
 
@@ -28,9 +28,9 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
           <h1 className="text-headline-sm font-bold text-primary">Room {room.number}</h1>
         </div>
         <div className="flex items-center gap-2">
-          <button className="p-2 cursor-pointer active:scale-95 transition-transform hover:bg-surface-container-low rounded-lg">
+          <Link href={`/rooms/${room.number}/edit`} className="p-2 cursor-pointer active:scale-95 transition-transform hover:bg-surface-container-low rounded-lg block">
             <span className="material-symbols-outlined text-primary">edit</span>
-          </button>
+          </Link>
           <button className="p-2 cursor-pointer active:scale-95 transition-transform hover:bg-surface-container-low rounded-lg">
             <span className="material-symbols-outlined text-primary">more_vert</span>
           </button>
@@ -115,10 +115,10 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
               </div>
             </div>
             
-            <button className="w-full bg-primary text-on-primary py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
+            <Link href={`/rooms/${room.number}/edit`} className="w-full bg-primary !text-white py-4 rounded-lg font-bold flex items-center justify-center gap-2 hover:opacity-90 active:scale-[0.98] transition-all">
               <span className="material-symbols-outlined">edit_square</span>
               Edit Room Details
-            </button>
+            </Link>
           </div>
         </div>
 
@@ -170,9 +170,9 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                   <span className="material-symbols-outlined text-on-surface-variant text-3xl mb-2 opacity-50">person_add</span>
                   <h4 className="font-bold text-on-surface mb-1">Available Bed</h4>
                   <p className="text-xs text-on-surface-variant mb-4">Assign a new tenant to this room.</p>
-                  <button className="px-4 py-2 bg-primary text-on-primary rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+                  <Link href={`/rooms/${room.number}/edit`} className="inline-block px-4 py-2 bg-primary !text-white rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
                     Assign Tenant
-                  </button>
+                  </Link>
                 </div>
               )}
             </div>
@@ -194,10 +194,10 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                 This room is ready for occupancy. You can assign {room.capacity} tenant(s) to this {room.type} room.
               </p>
               <div className="flex gap-4">
-                <button className="px-6 py-3 bg-primary text-on-primary rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+                <Link href={`/rooms/${room.number}/edit`} className="px-6 py-3 bg-primary !text-white rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
                   <span className="material-symbols-outlined">person_add</span>
                   Assign Tenant
-                </button>
+                </Link>
                 <button className="px-6 py-3 bg-surface-container-low text-on-surface border border-outline-variant rounded-lg font-bold hover:bg-surface-container-high transition-colors flex items-center gap-2">
                   <span className="material-symbols-outlined">visibility</span>
                   Show to Leads
