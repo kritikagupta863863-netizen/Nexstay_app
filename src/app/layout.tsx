@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { AppHeader } from "@/components/app-header";
+import { AppSidebar } from "@/components/app-sidebar";
 import "./globals.css";
 
 export const metadata: Metadata = {
@@ -9,7 +11,16 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <head>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet" />
+      </head>
+      <body>
+        <AppHeader />
+        <AppSidebar />
+        <div className="md:pl-[260px] pt-16 min-h-screen bg-surface">
+          {children}
+        </div>
+      </body>
     </html>
   );
 }

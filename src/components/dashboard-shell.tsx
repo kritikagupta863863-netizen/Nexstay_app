@@ -1,19 +1,10 @@
 import Link from "next/link";
-import { AppHeader } from "@/components/app-header";
 import { AppBottomNav } from "@/components/app-bottom-nav";
 import { RevenueChart } from "@/components/revenue-chart";
 import { RoomOccupancyChart } from "@/components/room-occupancy-chart";
 import { ComplaintsPanel } from "@/components/complaints-panel";
 import { RecentExpensesPanel } from "@/components/recent-expenses-panel";
 import { NexstayAIBanner } from "@/components/nexstay-ai-banner";
-
-const navigation = [
-  { label: "Overview", icon: "⌂", href: "/", active: true },
-  { label: "Rooms & beds", icon: "▦", href: "/rooms", active: false },
-  { label: "Tenants", icon: "♙", href: "/tenants" },
-  { label: "Billing", icon: "₹", href: "/billing" },
-  { label: "Complaints", icon: "!", href: "/tenants/complaints" }
-];
 
 const beds = [
   ["101-A", "Occupied", "Aarav Mehta"],
@@ -24,24 +15,13 @@ const beds = [
   ["103-B", "Maintenance", "Fan replacement"]
 ];
 
-
-
 function StatusChip({ status }: { status: string }) {
   return <span className={`status status-${status.toLowerCase()}`}>{status}</span>;
 }
 
 export function DashboardShell() {
   return (
-    <div className="app-wrapper">
-      <AppHeader activeNav="Overview" />
-      <div className="app-shell">
-        <aside className="sidebar" aria-label="Primary navigation">
-          <nav>
-            {navigation.map((item) => <Link className={item.active ? "nav-item active" : "nav-item"} href={item.href} key={item.label}><span aria-hidden="true">{item.icon}</span>{item.label}</Link>)}
-          </nav>
-        </aside>
-
-        <main className="main-content">
+    <div className="main-content">
           <header className="page-header">
             <div><p className="eyebrow">SATURDAY, 5 SEPTEMBER 2026</p><h1>Good morning, Arjun</h1><p className="lede">Here&apos;s what needs your attention today.</p></div>
             <div className="header-actions"><button className="primary-button">Collect Rent</button></div>
@@ -67,9 +47,7 @@ export function DashboardShell() {
 
         <NexstayAIBanner />
         <p className="footer-note">Online-only owner workspace · English · INR · Asia/Kolkata</p>
-      </main>
       <AppBottomNav activeTab="home" />
-      </div>
     </div>
   );
 }
