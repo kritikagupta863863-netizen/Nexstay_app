@@ -1,14 +1,25 @@
 "use client";
 
 import { useState } from "react";
-
-const data = [
-  { label: "Single", occupied: 24, available: 12, total: 36 },
-  { label: "Double", occupied: 24, available: 12, total: 36 },
-  { label: "Triple", occupied: 24, available: 12, total: 36 },
-];
+import { getRooms } from "@/lib/data";
 
 export function RoomOccupancyChart() {
+  const rooms = getRooms();
+  
+  // Calculate stats dynamically
+  const data = ["Single Premium", "Double Sharing", "Triple Sharing"].map(type => {
+    const typeRooms = rooms.filter(r => r.type === type);
+    const total = typeRooms.reduce((sum, r) => sum + r.capacity, 0);
+    const occupied = typeRooms.reduce((sum, r) => sum + r.occupied, 0);
+    const available = total - occupied;
+    
+    return {
+      label: type.split(" ")[0], // "Single", "Double", "Triple"
+      occupied,
+      available,
+      total
+    };
+  });
   const maxTotal = Math.max(...data.map((d) => d.total));
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 

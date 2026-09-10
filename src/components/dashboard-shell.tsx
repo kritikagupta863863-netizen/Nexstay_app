@@ -6,20 +6,14 @@ import { ComplaintsPanel } from "@/components/complaints-panel";
 import { RecentExpensesPanel } from "@/components/recent-expenses-panel";
 import { NexstayAIBanner } from "@/components/nexstay-ai-banner";
 
-const beds = [
-  ["101-A", "Occupied", "Aarav Mehta"],
-  ["101-B", "Occupied", "Riya Shah"],
-  ["102-A", "Vacant", "Ready to assign"],
-  ["102-B", "Vacant", "Ready to assign"],
-  ["103-A", "Occupied", "Kabir Singh"],
-  ["103-B", "Maintenance", "Fan replacement"]
-];
-
-function StatusChip({ status }: { status: string }) {
-  return <span className={`status status-${status.toLowerCase()}`}>{status}</span>;
-}
+import { getRooms } from "@/lib/data";
 
 export function DashboardShell() {
+  const rooms = getRooms();
+  const totalCapacity = rooms.reduce((sum, r) => sum + r.capacity, 0);
+  const totalOccupied = rooms.reduce((sum, r) => sum + r.occupied, 0);
+  const occupancyRate = totalCapacity > 0 ? Math.round((totalOccupied / totalCapacity) * 100) : 0;
+
   return (
     <div className="main-content">
           <header className="page-header">
@@ -30,7 +24,7 @@ export function DashboardShell() {
         <section className="notice-banner" aria-label="Implementation status"><span aria-hidden="true">i</span><p><strong>Documentation-first preview.</strong> Live data, authentication, and database workflows will be connected in the next slice.</p></section>
 
         <section className="metrics" aria-label="Property summary">
-          <Link className="metric-card metric-card-link" href="/rooms"><span className="metric-label">Occupancy</span><strong>82<span className="metric-unit">%</span></strong><span className="metric-trend positive">↑ 4.2% <em>vs last month</em></span></Link>
+          <Link className="metric-card metric-card-link" href="/rooms"><span className="metric-label">Occupancy</span><strong>{occupancyRate}<span className="metric-unit">%</span></strong><span className="metric-trend positive">↑ 4.2% <em>vs last month</em></span></Link>
           <Link className="metric-card metric-card-link" href="/billing"><span className="metric-label">Monthly revenue</span><strong>₹1,84,500</strong><span className="metric-trend positive">↑ 8.6% <em>vs last month</em></span></Link>
           <Link className="metric-card metric-card-link" href="/billing#pending-invoices"><span className="metric-label">Pending rent</span><strong>₹24,000</strong><span className="metric-trend warning">6 invoices <em>need attention</em></span></Link>
           <Link className="metric-card metric-card-link" href="/billing#recent-expenses"><span className="metric-label">Monthly expense</span><strong>₹30,250</strong><span className="metric-trend warning">6 recorded <em>this month</em></span></Link>

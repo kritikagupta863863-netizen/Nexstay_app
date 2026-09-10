@@ -32,6 +32,10 @@ export const roomsData: Room[] = [
   { number: "303", floor: 3, type: "Triple Sharing", status: "Occupied", occupied: 3, capacity: 3, beds: ["Sam", "Chris", "Pat"], rent: "₹5,200" },
 ];
 
+export function getRooms(): Room[] {
+  return roomsData;
+}
+
 export function getRoomById(id: string): Room | undefined {
   return roomsData.find((room) => room.number === id);
 }
