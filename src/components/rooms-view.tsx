@@ -199,9 +199,12 @@ export function RoomsView() {
                       </td>
                       <td className="px-6 py-4 text-sm font-medium">{room.occupied}/{room.capacity}</td>
                       <td className="px-6 py-4 text-right">
-                        <button className="text-secondary font-semibold text-sm hover:underline">
+                        <Link 
+                          href={`/rooms/${room.number}`} 
+                          className="text-secondary font-semibold text-sm hover:underline"
+                        >
                           {room.status === "Vacant" ? "Assign" : room.status === "Maintenance" ? "Schedule" : "Details"}
-                        </button>
+                        </Link>
                       </td>
                     </tr>
                   ))

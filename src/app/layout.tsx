@@ -17,7 +17,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body>
         <AppHeader />
         <AppSidebar />
-        <div className="md:pl-[260px] pt-16 min-h-screen bg-surface">
+        <div className="md:pl-[260px] min-h-screen bg-surface">
           {children}
         </div>
       </body>
