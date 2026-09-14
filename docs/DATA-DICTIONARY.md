@@ -61,3 +61,58 @@
 - Purpose: atomic import of tenant and operational records.
 - Fields: id, property_id, submitted_by, submitted_at, status, validation_errors
 - Integrity: validate all rows before commit; any invalid row rejects the entire batch and writes no imported records.
+
+---
+
+## 🚧 Frontend Temporary Data Models (Mock Data)
+
+*Note: The following interfaces are currently used in the frontend to render the UI while the backend is pending. They should be referenced when designing the final API contracts.*
+
+### 1. Mock Room (`src/lib/data.ts`)
+Currently used in the Room List and Dashboard.
+```typescript
+type Room = {
+  number: string;
+  floor: number;
+  type: string;           // e.g., "Single Premium", "Double Sharing"
+  status: RoomStatus;     // "Occupied" | "Vacant" | "Maintenance"
+  occupied: number;       // Current number of tenants
+  capacity: number;       // Total beds
+  beds: string[];         // Array of tenant names or status strings (e.g., "Ready to assign")
+  rent: string;           // Formatted rent string (e.g., "₹8,500")
+};
+```
+
+### 2. Mock Tenant List Item (`src/components/tenant-directory.tsx`)
+Currently used in the Tenant Directory table/list.
+```typescript
+type Tenant = {
+  name: string;
+  phone: string;
+  room: string;           // Room number/label
+  floor: number;
+  type: "Single" | "Double" | "Triple";
+  joined: string;         // Formatted date string (e.g., "12 Mar 2025")
+  joinedValue: number;    // Numeric sortable value (YYYYMMDD)
+  status: "Active" | "Past";
+  initials: string;       // E.g., "AM"
+};
+```
+
+### 3. Mock Tenant Profile (`src/app/tenants/[id]/page.tsx`)
+Currently used to render the detailed tenant profile view.
+```typescript
+type TenantProfile = {
+  name: string;
+  initials: string;
+  phone: string;
+  email: string;
+  room: string;           // Room number
+  roommates: {            // Array of co-tenants
+    id: string;
+    name: string;
+    initials: string;
+    since: string;        // E.g., "June 2023"
+  }[];
+};
+```

@@ -152,12 +152,9 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                         <span>Joined: {new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}</span>
                       </div>
                       <div className="mt-4 flex gap-2">
-                        <button className="flex-1 py-2 text-sm font-bold text-secondary border border-secondary rounded-lg hover:bg-secondary hover:text-on-secondary transition-colors">
+                        <Link href={`/tenants/arjun`} className="flex-1 py-2 text-center text-sm font-bold text-secondary border border-secondary rounded-lg hover:bg-secondary hover:text-on-secondary transition-colors block">
                           View Profile
-                        </button>
-                        <button className="flex-1 py-2 text-sm font-bold text-on-surface-variant bg-surface-container-low rounded-lg hover:bg-surface-container-high transition-colors">
-                          Manage Lease
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -170,9 +167,9 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                   <span className="material-symbols-outlined text-on-surface-variant text-3xl mb-2 opacity-50">person_add</span>
                   <h4 className="font-bold text-on-surface mb-1">Available Bed</h4>
                   <p className="text-xs text-on-surface-variant mb-4">Assign a new tenant to this room.</p>
-                  <Link href={`/rooms/${room.number}/edit`} className="inline-block px-4 py-2 bg-primary !text-white rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
+                  <button type="button" className="inline-block px-4 py-2 bg-primary !text-white rounded-lg text-sm font-bold hover:opacity-90 transition-opacity">
                     Assign Tenant
-                  </Link>
+                  </button>
                 </div>
               )}
             </div>
@@ -194,10 +191,10 @@ export default async function RoomDetailPage({ params }: { params: Promise<{ id:
                 This room is ready for occupancy. You can assign {room.capacity} tenant(s) to this {room.type} room.
               </p>
               <div className="flex gap-4">
-                <Link href={`/rooms/${room.number}/edit`} className="px-6 py-3 bg-primary !text-white rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
+                <button type="button" className="px-6 py-3 bg-primary !text-white rounded-lg font-bold hover:opacity-90 transition-opacity flex items-center gap-2">
                   <span className="material-symbols-outlined">person_add</span>
                   Assign Tenant
-                </Link>
+                </button>
                 <button className="px-6 py-3 bg-surface-container-low text-on-surface border border-outline-variant rounded-lg font-bold hover:bg-surface-container-high transition-colors flex items-center gap-2">
                   <span className="material-symbols-outlined">visibility</span>
                   Show to Leads

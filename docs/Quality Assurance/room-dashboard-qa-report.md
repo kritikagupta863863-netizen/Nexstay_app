@@ -85,3 +85,22 @@
 8. `#3` — Add occupancy progress bars to the rooms table
 9. `#21` — Time-aware greeting
 10. `#11`, `#12` — Wire up dead buttons
+
+---
+
+## 💡 Product Decisions & Design Notes
+
+These are deliberate product decisions — not bugs — documented here for future implementation alignment.
+
+### Tenant Profile: Owner Cannot Edit Personal Info or Documents
+
+**Decision:** PG owners do **not** have the ability to edit a tenant's personal information (name, phone, email) or their uploaded KYC documents from the owner-side app.
+
+**Rationale:** NexStay will have a dedicated **tenant-facing app/portal** where tenants create their own accounts, upload their KYC documents, and manage their personal profile. Since this data is owned by the tenant:
+- Owners editing this information creates a trust and data integrity risk.
+- Documents uploaded by the tenant (Aadhar, Employment Letter, Lease Agreement) are submitted for security verification and should remain immutable from the owner side.
+- The owner's view of the tenant profile is **read-only** — it shows the tenant's verified information for reference only.
+
+**Current implementation:** The `Edit Profile` button and the `/tenants/[id]/edit` route have been **removed** from the owner app. The edit page scaffolded from the design file (`edit_tenant_profile`) has been deleted.
+
+**Future work:** The tenant-side portal will allow tenants to update their own profile and re-upload documents, which will then reflect on the owner's read-only view.
