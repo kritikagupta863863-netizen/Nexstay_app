@@ -1,5 +1,5 @@
-import { TenantDirectory } from "@/components/tenant-directory";
+import { redirect } from "next/navigation";
 
 export default function TenantsPage() {
-  return <TenantDirectory />;
+  redirect("/tenants/management");
 }

@@ -27,23 +27,47 @@ export function AppSidebar() {
         {navItems.map((item) => {
           const isActive = activeNav === item.id;
           return (
-            <Link 
-              key={item.id} 
-              href={item.href}
-              className={`flex items-center gap-4 px-4 py-3.5 rounded-lg transition-colors cursor-pointer ${
-                isActive 
-                  ? "bg-secondary-fixed text-secondary font-bold" 
-                  : "text-on-surface-variant hover:bg-surface-container-low font-medium"
-              }`}
-            >
-              <span 
-                className="material-symbols-outlined text-xl" 
-                style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}
+            <div key={item.id} className="flex flex-col">
+              <Link 
+                href={item.href}
+                className={`flex items-center gap-4 px-4 py-3.5 rounded-lg transition-colors cursor-pointer ${
+                  isActive 
+                    ? "bg-secondary-fixed text-secondary font-bold" 
+                    : "text-on-surface-variant hover:bg-surface-container-low font-medium"
+                }`}
               >
-                {item.icon}
-              </span>
-              <span className="text-[15px]">{item.label}</span>
-            </Link>
+                <span 
+                  className="material-symbols-outlined text-xl" 
+                  style={isActive ? { fontVariationSettings: "'FILL' 1" } : {}}
+                >
+                  {item.icon}
+                </span>
+                <span className="text-[15px]">{item.label}</span>
+              </Link>
+
+              {isActive && item.id === "tenants" && (
+                <div className="flex flex-col ml-11 mt-1 mb-2 gap-1 border-l-2 border-outline-variant pl-4">
+                  {[
+                    { label: "Management", href: "/tenants/management" },
+                    { label: "Complaints", href: "/tenants/complaints" },
+                    { label: "Reminders", href: "/tenants/reminders" },
+                    { label: "Notify", href: "/tenants/notifications" },
+                  ].map(sub => (
+                    <Link
+                      key={sub.href}
+                      href={sub.href}
+                      className={`py-2 text-sm transition-colors ${
+                        pathname === sub.href || pathname?.startsWith(sub.href + "/")
+                          ? "text-secondary font-bold"
+                          : "text-on-surface-variant hover:text-on-surface"
+                      }`}
+                    >
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
+            </div>
           );
         })}
       </nav>
