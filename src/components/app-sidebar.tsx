@@ -18,7 +18,6 @@ export function AppSidebar() {
     { id: "rooms", label: "Rooms & beds", icon: "grid_view", href: "/rooms" },
     { id: "tenants", label: "Tenants", icon: "person", href: "/tenants" },
     { id: "billing", label: "Billing", icon: "currency_rupee", href: "/billing" },
-    { id: "complaints", label: "Complaints", icon: "priority_high", href: "/complaints" },
   ];
 
   return (
@@ -51,7 +50,6 @@ export function AppSidebar() {
                     { label: "Management", href: "/tenants/management" },
                     { label: "Complaints", href: "/tenants/complaints" },
                     { label: "Reminders", href: "/tenants/reminders" },
-                    { label: "Notify", href: "/tenants/notifications" },
                   ].map(sub => (
                     <Link
                       key={sub.href}

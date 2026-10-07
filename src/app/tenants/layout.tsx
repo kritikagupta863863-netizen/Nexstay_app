@@ -10,7 +10,6 @@ export default function TenantsLayout({ children }: { children: React.ReactNode 
     { label: "Management", href: "/tenants/management" },
     { label: "Complaints", href: "/tenants/complaints" },
     { label: "Reminders", href: "/tenants/reminders" },
-    { label: "Notify", href: "/tenants/notifications" },
   ];
 
   // We only show these tabs on mobile. On desktop, they appear in the sidebar.
