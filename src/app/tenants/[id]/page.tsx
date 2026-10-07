@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState, use } from "react";
+import { useRouter } from "next/navigation";
 import { AppBottomNav } from "@/components/app-bottom-nav";
 
 const mockTenants: Record<string, any> = {
@@ -28,6 +29,7 @@ const mockTenants: Record<string, any> = {
 };
 
 export default function TenantProfilePage({ params }: { params: Promise<{ id: string }> }) {
+  const router = useRouter();
   const [isMessageOpen, setIsMessageOpen] = useState(false);
   const unwrappedParams = use(params);
   const tenant = mockTenants[unwrappedParams.id] || mockTenants.arjun;
@@ -38,9 +40,9 @@ export default function TenantProfilePage({ params }: { params: Promise<{ id: st
       <header className="sticky top-0 w-full z-50 bg-surface-container-lowest border-b border-outline-variant">
         <div className="flex items-center justify-between px-4 h-16 w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-4">
-            <Link href="/rooms/101" className="hover:bg-surface-container-high transition-colors p-2 rounded-full active:opacity-80 block">
+            <button onClick={() => router.back()} className="hover:bg-surface-container-high transition-colors p-2 rounded-full active:opacity-80 block">
               <span className="material-symbols-outlined text-primary">arrow_back</span>
-            </Link>
+            </button>
             <h1 className="font-headline text-headline-sm font-semibold text-primary">Tenant Profile</h1>
           </div>
           <button className="hover:bg-surface-container-high transition-colors p-2 rounded-full active:opacity-80">
