@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { AppHeader } from "@/components/app-header";
 import { AppBottomNav } from "@/components/app-bottom-nav";
 
 type Tenant = {
+  id: string;
   name: string;
   phone: string;
   room: string;
@@ -18,13 +18,13 @@ type Tenant = {
 };
 
 const previewTenants: Tenant[] = [
-  { name: "Aarav Mehta", phone: "+91 98765 43210", room: "101-A", floor: 1, type: "Single", joined: "12 Mar 2025", joinedValue: 20250312, status: "Active", initials: "AM" },
-  { name: "Riya Shah", phone: "+91 98765 43211", room: "103-B", floor: 1, type: "Double", joined: "05 Jan 2025", joinedValue: 20250105, status: "Active", initials: "RS" },
-  { name: "Kabir Singh", phone: "+91 98765 43212", room: "103-A", floor: 1, type: "Double", joined: "20 Nov 2024", joinedValue: 20241120, status: "Active", initials: "KS" },
-  { name: "Dev Patel", phone: "+91 98765 43213", room: "201-A", floor: 2, type: "Triple", joined: "15 Feb 2025", joinedValue: 20250215, status: "Active", initials: "DP" },
-  { name: "Priya Sharma", phone: "+91 98765 43214", room: "201-B", floor: 2, type: "Triple", joined: "10 Oct 2024", joinedValue: 20241010, status: "Active", initials: "PS" },
-  { name: "Sara Rodrigues", phone: "+91 98765 43215", room: "B-204", floor: 2, type: "Single", joined: "05 Jan 2024", joinedValue: 20240105, status: "Past", initials: "SR" },
-  { name: "Michael Kim", phone: "+91 98765 43216", room: "C-301", floor: 3, type: "Triple", joined: "20 Nov 2023", joinedValue: 20231120, status: "Past", initials: "MK" },
+  { id: "aarav", name: "Aarav Mehta", phone: "+91 98765 43210", room: "101-A", floor: 1, type: "Single", joined: "12 Mar 2025", joinedValue: 20250312, status: "Active", initials: "AM" },
+  { id: "riya", name: "Riya Shah", phone: "+91 98765 43211", room: "103-B", floor: 1, type: "Double", joined: "05 Jan 2025", joinedValue: 20250105, status: "Active", initials: "RS" },
+  { id: "kabir", name: "Kabir Singh", phone: "+91 98765 43212", room: "103-A", floor: 1, type: "Double", joined: "20 Nov 2024", joinedValue: 20241120, status: "Active", initials: "KS" },
+  { id: "dev", name: "Dev Patel", phone: "+91 98765 43213", room: "201-A", floor: 2, type: "Triple", joined: "15 Feb 2025", joinedValue: 20250215, status: "Active", initials: "DP" },
+  { id: "priya", name: "Priya Sharma", phone: "+91 98765 43214", room: "201-B", floor: 2, type: "Triple", joined: "10 Oct 2024", joinedValue: 20241010, status: "Active", initials: "PS" },
+  { id: "sara", name: "Sara Rodrigues", phone: "+91 98765 43215", room: "B-204", floor: 2, type: "Single", joined: "05 Jan 2024", joinedValue: 20240105, status: "Past", initials: "SR" },
+  { id: "michael", name: "Michael Kim", phone: "+91 98765 43216", room: "C-301", floor: 3, type: "Triple", joined: "20 Nov 2023", joinedValue: 20231120, status: "Past", initials: "MK" },
 ];
 
 type SortOption = "name" | "joined";
@@ -35,7 +35,6 @@ export function TenantDirectory() {
   const [sort, setSort] = useState<SortOption>("name");
   const [type, setType] = useState("All Types");
   const [floor, setFloor] = useState("All Floors");
-  const [selectedTenant, setSelectedTenant] = useState<Tenant | null>(null);
 
   const tenants = useMemo(() => previewTenants
     .filter((tenant) => tenant.status === status)
@@ -46,7 +45,6 @@ export function TenantDirectory() {
 
   return (
     <div className="tenants-shell">
-      <AppHeader activeNav="Tenants" />
       <main className="tenants-content">
         <header className="tenants-heading"><div><p className="eyebrow">MAPLE HOUSE / PEOPLE</p><h1>Tenant directory</h1><p className="lede">Keep track of who calls your property home.</p></div><button type="button" className="primary-button" onClick={() => setStatus("Active")}>+ Add tenant</button></header>
         <section className="notice-banner tenant-preview-note" aria-label="Preview data notice"><span aria-hidden="true">i</span><p><strong>Preview data.</strong> This owner workspace is ready for the directory workflow; live tenant records and authentication will connect in a later slice.</p></section>
@@ -63,11 +61,10 @@ export function TenantDirectory() {
         </section>
         <section className="tenant-table-panel" aria-labelledby="tenant-list-heading">
           <div className="table-heading"><div><p className="eyebrow">TENANT DIRECTORY</p><h2 id="tenant-list-heading">{tenants.length} {status.toLowerCase()} tenants shown</h2></div><span className="table-note">Representative preview · {previewTenants.length} total records</span></div>
-          {tenants.length ? <div className="tenant-table-wrap"><table className="tenant-table"><thead><tr><th>Tenant</th><th>Contact</th><th>Room</th><th>Sharing</th><th>Joined on</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{tenants.map((tenant) => <tr key={`${tenant.name}-${tenant.room}`}><td data-label="Tenant"><button className="tenant-name" type="button" onClick={() => setSelectedTenant(tenant)}><span className="tenant-avatar">{tenant.initials}</span><strong>{tenant.name}</strong></button></td><td data-label="Contact"><span className="tenant-phone">{tenant.phone}</span></td><td data-label="Room"><strong className="mono">{tenant.room}</strong><small>Floor {tenant.floor}</small></td><td data-label="Sharing"><span className={`sharing-chip ${tenant.type.toLowerCase()}`}>{tenant.type}</span></td><td data-label="Joined on"><span className="tenant-date">{tenant.joined}</span></td><td className="tenant-action"><button type="button" className="details-button" onClick={() => setSelectedTenant(tenant)}>View details <span aria-hidden="true">→</span></button></td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No tenants match these filters.</strong><p>Try another status, floor, room type, or search term.</p><button type="button" onClick={() => { setQuery(""); setType("All Types"); setFloor("All Floors"); }}>Clear filters</button></div>}
+          {tenants.length ? <div className="tenant-table-wrap"><table className="tenant-table"><thead><tr><th>Tenant</th><th>Contact</th><th>Room</th><th>Sharing</th><th>Joined on</th><th><span className="sr-only">Actions</span></th></tr></thead><tbody>{tenants.map((tenant) => <tr key={`${tenant.name}-${tenant.room}`}><td data-label="Tenant"><Link className="tenant-name" href={`/tenants/${tenant.id}`}><span className="tenant-avatar">{tenant.initials}</span><strong>{tenant.name}</strong></Link></td><td data-label="Contact"><span className="tenant-phone">{tenant.phone}</span></td><td data-label="Room"><strong className="mono">{tenant.room}</strong><small>Floor {tenant.floor}</small></td><td data-label="Sharing"><span className={`sharing-chip ${tenant.type.toLowerCase()}`}>{tenant.type}</span></td><td data-label="Joined on"><span className="tenant-date">{tenant.joined}</span></td><td className="tenant-action"><Link href={`/tenants/${tenant.id}`} className="details-button">View details <span aria-hidden="true">→</span></Link></td></tr>)}</tbody></table></div> : <div className="rooms-empty"><strong>No tenants match these filters.</strong><p>Try another status, floor, room type, or search term.</p><button type="button" onClick={() => { setQuery(""); setType("All Types"); setFloor("All Floors"); }}>Clear filters</button></div>}
         </section>
       </main>
       <AppBottomNav activeTab="tenants" />
-      {selectedTenant && <div className="room-modal-backdrop" role="presentation" onClick={() => setSelectedTenant(null)}><section className="room-modal" role="dialog" aria-modal="true" aria-labelledby="tenant-detail-title" onClick={(event) => event.stopPropagation()}><div className="modal-heading"><div><p className="eyebrow">TENANT DETAIL</p><h2 id="tenant-detail-title">{selectedTenant.name}</h2></div><button type="button" className="modal-close" aria-label="Close tenant details" onClick={() => setSelectedTenant(null)}>×</button></div><div className="modal-meta"><span className="sharing-chip">{selectedTenant.status}</span><span>{selectedTenant.room} · Floor {selectedTenant.floor} · {selectedTenant.type}</span></div><div className="modal-stats"><div><span>Phone</span><strong>{selectedTenant.phone}</strong></div><div><span>Joined on</span><strong>{selectedTenant.joined}</strong></div></div><p className="tenant-detail-copy">Owner-facing preview profile. Editing, KYC, rent, and stay history will be added with the connected tenant workflow.</p><button type="button" className="primary-button modal-action" onClick={() => setSelectedTenant(null)}>Done</button></section></div>}
     </div>
   );
 }
