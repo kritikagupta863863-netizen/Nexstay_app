@@ -65,6 +65,27 @@ export function AppSidebar() {
                   ))}
                 </div>
               )}
+
+              {isActive && item.id === "billing" && (
+                <div className="flex flex-col ml-11 mt-1 mb-2 gap-1 border-l-2 border-outline-variant pl-4">
+                  {[
+                    { label: "Revenue", href: "/billing/revenue" },
+                    { label: "Expenses", href: "/billing/expenses" },
+                  ].map(sub => (
+                    <Link
+                      key={sub.href}
+                      href={sub.href}
+                      className={`py-2 text-sm transition-colors ${
+                        pathname === sub.href || pathname?.startsWith(sub.href + "/")
+                          ? "text-secondary font-bold"
+                          : "text-on-surface-variant hover:text-on-surface"
+                      }`}
+                    >
+                      {sub.label}
+                    </Link>
+                  ))}
+                </div>
+              )}
             </div>
           );
         })}
